@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Mouse · Controla el ordenador con la mano — Aya Hibat Allah Aichoune</title>
+<meta name="description" content="Hand Mouse: control del ordenador con la webcam mediante gestos de la mano. Python, OpenCV, MediaPipe y PyAutoGUI. Proyecto de Aya Hibat Allah Aichoune.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rosa:#e85d8a;
+    --rosa-suave:#fceef3;
+    --rosa-medio:#f7d4e0;
+    --lila:#8b5fbf;
+    --lila-suave:#f3edfa;
+    --tinta:#3a2e39;
+    --tinta-suave:#6f5f6e;
+    --crema:#fffaf7;
+    --blanco:#ffffff;
+    --dorado:#e9b44c;
+    --verde:#3e9e7c;
+    --sombra:0 10px 30px rgba(232,93,138,.12);
+    --radio:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    background:var(--crema);
+    color:var(--tinta);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+  ::selection{background:var(--rosa-medio)}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 6vw;
+    background:rgba(255,250,247,.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(232,93,138,.12);
+  }
+  nav .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--rosa);text-decoration:none}
+  nav .logo span{color:var(--lila)}
+  nav .volver{
+    color:var(--tinta-suave);text-decoration:none;font-weight:800;font-size:.9rem;
+    display:inline-flex;align-items:center;gap:6px;transition:color .25s;
+  }
+  nav .volver:hover{color:var(--rosa)}
+
+  header{
+    padding:150px 6vw 60px;
+    text-align:center;
+    background:linear-gradient(160deg,var(--rosa-suave) 0%,var(--crema) 55%,var(--lila-suave) 100%);
+  }
+  .etiqueta{
+    display:inline-block;background:var(--rosa-suave);color:var(--rosa);
+    font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:6px 16px;border-radius:999px;margin-bottom:14px;
+    border:1px solid var(--rosa-medio);
+  }
+  header h1{font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.15;margin-bottom:14px}
+  header h1 em{font-style:italic;color:var(--rosa)}
+  header p{max-width:640px;margin:0 auto;color:var(--tinta-suave);font-size:1.05rem}
+  .tecnologias{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:22px}
+  .tecnologias span{
+    background:var(--lila-suave);color:var(--lila);
+    font-size:.8rem;font-weight:800;padding:6px 14px;border-radius:999px;
+  }
+
+  section{padding:64px 6vw;max-width:1000px;margin:0 auto}
+  section h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:10px}
+  section h2 .deco{color:var(--rosa)}
+  .intro-seccion{color:var(--tinta-suave);max-width:640px;margin-bottom:36px}
+
+  .grid-gestos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+  .gesto{
+    background:var(--blanco);border-radius:var(--radio);padding:28px 24px;
+    box-shadow:var(--sombra);border:1px solid rgba(139,95,191,.1);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .gesto:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(139,95,191,.16)}
+  .gesto .icono{font-size:2.1rem;margin-bottom:10px}
+  .gesto h3{font-size:1.08rem;margin-bottom:8px}
+  .gesto ul{margin:0 0 0 18px;color:var(--tinta-suave);font-size:.92rem}
+  .gesto ul li{margin-bottom:6px}
+  .gesto strong{color:var(--rosa)}
+
+  .como{
+    background:var(--blanco);border-radius:var(--radio);
+    padding:36px clamp(22px,4.5vw,46px);
+    box-shadow:var(--sombra);border:1px solid rgba(232,93,138,.1);
+  }
+  .como ul{margin-left:20px;color:var(--tinta-suave)}
+  .como ul li{margin-bottom:10px}
+  .como strong{color:var(--lila)}
+
+  .ejecutar{
+    margin-top:26px;
+    background:linear-gradient(150deg,#fff,var(--lila-suave));
+    border:1px dashed var(--rosa-medio);border-radius:var(--radio);
+    padding:26px clamp(22px,4.5vw,40px);
+  }
+  .ejecutar h3{font-size:1.05rem;margin-bottom:12px}
+  .ejecutar code{
+    display:block;background:#241a2e;color:#f4e9f5;
+    font-family:Consolas,'Courier New',monospace;font-size:.9rem;
+    border-radius:12px;padding:14px 18px;margin:8px 0;
+    overflow-x:auto;white-space:pre;
+  }
+  .ejecutar small{color:var(--tinta-suave)}
+
+  .barra-codigo{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    background:linear-gradient(90deg,var(--rosa-suave),var(--lila-suave));
+    border:1px solid rgba(139,95,191,.15);border-bottom:none;
+    border-radius:var(--radio) var(--radio) 0 0;
+    padding:14px 20px;
+  }
+  .barra-codigo .nombre{
+    font-family:Consolas,'Courier New',monospace;font-weight:700;
+    color:var(--tinta);font-size:.92rem;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .barra-codigo .acciones{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:9px 20px;border-radius:999px;border:none;cursor:pointer;
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;text-decoration:none;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-rosa{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;box-shadow:0 6px 16px rgba(232,93,138,.3)}
+  .btn-borde{border:2px solid var(--rosa-medio);color:var(--rosa);background:rgba(255,255,255,.8)}
+  .btn-borde:hover{border-color:var(--rosa)}
+
+  .panel-codigo{
+    background:#241a2e;
+    border-radius:0 0 var(--radio) var(--radio);
+    border:1px solid rgba(139,95,191,.2);border-top:none;
+    box-shadow:var(--sombra);
+    overflow:auto;max-height:70vh;
+  }
+  .panel-codigo pre{
+    margin:0;padding:24px 26px;
+    font-family:Consolas,'Courier New',monospace;
+    font-size:.86rem;line-height:1.6;
+    color:#f4e9f5;
+    white-space:pre;min-width:max-content;
+  }
+  .kw{color:#f38ba8;font-weight:700}
+  .str{color:#e9b44c}
+  .com{color:#8a7a95;font-style:italic}
+  .num{color:#7fd1b9}
+
+  footer{text-align:center;padding:40px 6vw 46px;color:var(--tinta-suave);font-size:.85rem}
+  footer .corazon{color:var(--rosa)}
+  footer a{color:var(--rosa);font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="../../index.html">Aya <span>·</span> Dev</a>
+  <a class="volver" href="../../index.html#ia">← Volver a la página principal</a>
+</nav>
+
+<header>
+  <span class="etiqueta">Proyecto · Visión por Computador</span>
+  <h1>🖐️ Hand Mouse<br><em>controla el ordenador con la mano</em></h1>
+  <p>La webcam detecta los 21 puntos de la mano en tiempo real y los convierte en un ratón completo: cursor, clic izquierdo y derecho, arrastre y scroll. Sin tocar el ratón ni el teclado.</p>
+  <div class="tecnologias">
+    <span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>PyAutoGUI</span><span>Reconocimiento de gestos</span>
+  </div>
+</header>
+
+<section>
+  <h2>Los gestos <span class="deco">✦</span></h2>
+  <p class="intro-seccion">Cuatro posturas de la mano, cada una con su función — el programa muestra en pantalla el modo activo en todo momento.</p>
+  <div class="grid-gestos">
+    <div class="gesto">
+      <div class="icono">🖱️</div>
+      <h3>Modo cursor</h3>
+      <ul>
+        <li>Mano abierta: <strong>mueve el cursor</strong> con la mano.</li>
+        <li>Pinza pulgar + índice: <strong>clic izquierdo</strong>; mantenla cerrada y mueve la mano para <strong>arrastrar</strong>.</li>
+        <li>Pinza pulgar + corazón (índice estirado): <strong>clic derecho</strong>.</li>
+      </ul>
+    </div>
+    <div class="gesto">
+      <div class="icono">✌️</div>
+      <h3>Modo scroll</h3>
+      <ul>
+        <li>Haz una «V» con índice y corazón (anular y meñique cerrados).</li>
+        <li>Mueve la mano arriba o abajo para usar la <strong>rueda del ratón</strong>.</li>
+      </ul>
+    </div>
+    <div class="gesto">
+      <div class="icono">✊</div>
+      <h3>Pausa</h3>
+      <ul>
+        <li>Puño cerrado: el cursor se <strong>congela</strong>.</li>
+        <li>Recoloca la mano donde quieras y ábrela: el cursor sigue justo donde estaba, <strong>como al levantar un ratón de la alfombrilla</strong>.</li>
+      </ul>
+    </div>
+    <div class="gesto">
+      <div class="icono">🛡️</div>
+      <h3>Seguridad</h3>
+      <ul>
+        <li>Tecla <strong>q</strong> en la ventana de la cámara para salir.</li>
+        <li>Emergencia: lleva el ratón físico a la esquina superior izquierda y el programa <strong>se detiene al instante</strong> (failsafe).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>¿Cómo está hecho? <span class="deco">✿</span></h2>
+  <p class="intro-seccion">Detrás de un gesto sencillo hay varias decisiones de ingeniería para que el control sea estable y agradable de usar.</p>
+  <div class="como">
+    <ul>
+      <li><strong>MediaPipe Hands</strong> detecta 21 puntos de la mano en cada fotograma de la webcam, y OpenCV dibuja la interfaz de depuración en directo.</li>
+      <li>Una <strong>máquina de estados</strong> (cursor / scroll / pausa) exige que la nueva postura se mantenga varios fotogramas antes de cambiar de modo, para que la mano no «parpadee» entre modos a mitad de un gesto.</li>
+      <li>Los clics usan <strong>histéresis</strong>: el umbral para cerrar la pinza es distinto al de abrirla, así el ruido de la cámara no dispara clics fantasma.</li>
+      <li>El cursor se mueve con <strong>suavizado exponencial</strong> y <strong>movimiento relativo</strong>: al salir de una pausa, continúa donde estaba en vez de pegar un salto.</li>
+      <li>Las distancias se <strong>normalizan por el tamaño de la mano</strong>, de modo que todo funciona igual estés cerca o lejos de la cámara.</li>
+    </ul>
+  </div>
+  <div class="ejecutar">
+    <h3>▶ Pruébalo en tu ordenador</h3>
+    <code>pip install opencv-python mediapipe pyautogui
+python hand_mouse.py</code>
+    <small>Solo necesitas Python y una webcam. Descarga el archivo con el botón de abajo.</small>
+  </div>
+</section>
+
+<section>
+  <h2>El código <span class="deco">✧</span></h2>
+  <p class="intro-seccion">El programa completo, en un único archivo de Python.</p>
+  <div class="barra-codigo">
+    <span class="nombre">🐍 hand_mouse.py</span>
+    <div class="acciones">
+      <button class="btn btn-borde" id="btn-copiar">📋 Copiar código</button>
+      <a class="btn btn-rosa" href="hand_mouse.py" download="hand_mouse.py">⬇ Descargar hand_mouse.py</a>
+    </div>
+  </div>
+  <div class="panel-codigo">
+    <pre><code id="codigo"></code></pre>
+  </div>
+</section>
+
+<footer>
+  Hecho con <span class="corazon">♥</span> por <a href="../../index.html">Aya Hibat Allah Aichoune</a> · Santiago de Compostela, 2026
+</footer>
+
+<script type="text/x-python" id="fuente">
+import cv2
+import mediapipe as mp
+import math
+import pyautogui
+
+pyautogui.PAUSE = 0
+pyautogui.FAILSAFE = True
+
+ANCHO_PANTALLA, ALTO_PANTALLA = pyautogui.size()
+
+MARGEN = 0.2
+
+RATIO_PINZA_ON = 0.30
+RATIO_PINZA_OFF = 0.40
+
+SUAVIZADO = 0.35
+
+FACTOR_DEDO_EXTENDIDO = 1.25
+
+FRAMES_CAMBIO_MODO = 4
+
+SCROLL_SENSIBILIDAD = 60
+SCROLL_ZONA_MUERTA = 0.003
+
+ESTADO_CURSOR = "CURSOR"
+ESTADO_SCROLL = "SCROLL"
+ESTADO_PAUSA = "PAUSA"
+
+DEDOS = {
+    "indice": (8, 6),
+    "corazon": (12, 10),
+    "anular": (16, 14),
+    "menique": (20, 18),
+}
+
+
+def distancia(a, b, w, h):
+    return math.hypot((a.x - b.x) * w, (a.y - b.y) * h)
+
+
+def calcular_ratio_pinza(lm, w, h, punta_dedo):
+    pulgar = lm.landmark[4]
+    dedo = lm.landmark[punta_dedo]
+    muneca = lm.landmark[0]
+    nudillo = lm.landmark[9]
+
+    tam_mano = distancia(muneca, nudillo, w, h)
+    return distancia(pulgar, dedo, w, h) / tam_mano if tam_mano > 0 else 999
+
+
+def dedos_extendidos(lm, w, h):
+    muneca = lm.landmark[0]
+    resultado = {}
+    for nombre, (punta, medio) in DEDOS.items():
+        d_punta = distancia(lm.landmark[punta], muneca, w, h)
+        d_medio = distancia(lm.landmark[medio], muneca, w, h)
+        resultado[nombre] = d_punta > d_medio * FACTOR_DEDO_EXTENDIDO
+    return resultado
+
+
+def detectar_pose(dedos):
+    if not any(dedos.values()):
+        return ESTADO_PAUSA
+    if dedos["indice"] and dedos["corazon"] and not dedos["anular"] and not dedos["menique"]:
+        return ESTADO_SCROLL
+    return ESTADO_CURSOR
+
+
+def punto_control(lm):
+    pulgar = lm.landmark[4]
+    indice = lm.landmark[8]
+    return (pulgar.x + indice.x) / 2, (pulgar.y + indice.y) / 2
+
+
+def mapear_a_pantalla(x_norm, y_norm):
+    x = (x_norm - MARGEN) / (1 - 2 * MARGEN)
+    y = (y_norm - MARGEN) / (1 - 2 * MARGEN)
+    return x * ANCHO_PANTALLA, y * ALTO_PANTALLA
+
+
+def limitar_a_pantalla(x, y):
+    return (
+        min(max(x, 1), ANCHO_PANTALLA - 2),
+        min(max(y, 1), ALTO_PANTALLA - 2),
+    )
+
+
+def suavizar(anterior, objetivo):
+    if anterior is None:
+        return objetivo
+    return (
+        anterior[0] + (objetivo[0] - anterior[0]) * SUAVIZADO,
+        anterior[1] + (objetivo[1] - anterior[1]) * SUAVIZADO,
+    )
+
+
+def dibujar_interfaz(frame, lm, dedos, estado, pinza_izq, ratio_izq, ratio_der, w, h):
+    cv2.rectangle(
+        frame,
+        (int(MARGEN * w), int(MARGEN * h)),
+        (int((1 - MARGEN) * w), int((1 - MARGEN) * h)),
+        (200, 200, 0), 1
+    )
+
+    if lm is not None:
+        mp.solutions.drawing_utils.draw_landmarks(
+            frame, lm, mp.solutions.hands.HAND_CONNECTIONS
+        )
+
+        for nombre, (punta, _) in DEDOS.items():
+            p = lm.landmark[punta]
+            color = (0, 255, 0) if dedos[nombre] else (0, 0, 255)
+            cv2.circle(frame, (int(p.x * w), int(p.y * h)), 8, color, -1)
+
+        cv2.putText(frame, f"Pinza izq: {ratio_izq:.2f}  der: {ratio_der:.2f}",
+                    (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+    if lm is None:
+        texto, color = "NO HAY MANO", (0, 0, 255)
+    elif estado == ESTADO_PAUSA:
+        texto, color = "PAUSA (puno)", (0, 165, 255)
+    elif estado == ESTADO_SCROLL:
+        texto, color = "SCROLL", (255, 255, 0)
+    elif pinza_izq:
+        texto, color = "ARRASTRANDO / CLIC", (0, 255, 0)
+    else:
+        texto, color = "CURSOR", (255, 255, 255)
+
+    cv2.putText(frame, texto, (20, 100),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 3)
+
+
+def main():
+    mp_hands = mp.solutions.hands
+    cap = cv2.VideoCapture(0)
+
+    estado = ESTADO_CURSOR
+    candidato = ESTADO_CURSOR
+    frames_candidato = 0
+
+    pinza_izq = False
+    pinza_der = False
+
+    cursor_suave = None
+    offset = (0.0, 0.0)
+    recalcular_offset = True
+
+    scroll_y_anterior = None
+    scroll_acumulado = 0.0
+
+    with mp_hands.Hands(
+        static_image_mode=False,
+        max_num_hands=1,
+        model_complexity=1,
+        min_detection_confidence=0.7,
+        min_tracking_confidence=0.7
+    ) as hands:
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("No se pudo leer la webcam")
+                break
+
+            frame = cv2.flip(frame, 1)
+            h, w, _ = frame.shape
+
+            results = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+            lm = None
+            dedos = {nombre: False for nombre in DEDOS}
+            ratio_izq = ratio_der = 999
+
+            if results.multi_hand_landmarks:
+                lm = results.multi_hand_landmarks[0]
+                dedos = dedos_extendidos(lm, w, h)
+                ratio_izq = calcular_ratio_pinza(lm, w, h, 8)
+                ratio_der = calcular_ratio_pinza(lm, w, h, 12)
+
+                pose = detectar_pose(dedos)
+                if pose != estado:
+                    if pose == candidato:
+                        frames_candidato += 1
+                    else:
+                        candidato = pose
+                        frames_candidato = 1
+                    if frames_candidato >= FRAMES_CAMBIO_MODO and not pinza_izq and not pinza_der:
+                        estado = pose
+                        scroll_y_anterior = None
+                        scroll_acumulado = 0.0
+                        if estado == ESTADO_CURSOR:
+                            recalcular_offset = True
+                else:
+                    candidato = estado
+                    frames_candidato = 0
+
+                if estado == ESTADO_CURSOR:
+                    x_norm, y_norm = punto_control(lm)
+                    bruto = mapear_a_pantalla(x_norm, y_norm)
+
+                    if recalcular_offset:
+                        pos = pyautogui.position()
+                        offset = (pos.x - bruto[0], pos.y - bruto[1])
+                        cursor_suave = (float(pos.x), float(pos.y))
+                        recalcular_offset = False
+
+                    objetivo = limitar_a_pantalla(bruto[0] + offset[0], bruto[1] + offset[1])
+                    cursor_suave = suavizar(cursor_suave, objetivo)
+                    pyautogui.moveTo(cursor_suave[0], cursor_suave[1])
+
+                    if (not pinza_izq and ratio_izq < RATIO_PINZA_ON
+                            and (dedos["corazon"] or dedos["anular"] or dedos["menique"])):
+                        pinza_izq = True
+                        pyautogui.mouseDown()
+                    elif pinza_izq and ratio_izq > RATIO_PINZA_OFF:
+                        pinza_izq = False
+                        pyautogui.mouseUp()
+
+                    if (not pinza_der and not pinza_izq
+                            and ratio_der < RATIO_PINZA_ON and dedos["indice"]):
+                        pinza_der = True
+                        pyautogui.click(button="right")
+                    elif pinza_der and ratio_der > RATIO_PINZA_OFF:
+                        pinza_der = False
+
+                elif estado == ESTADO_SCROLL:
+                    y_muneca = lm.landmark[0].y
+                    if scroll_y_anterior is not None:
+                        delta = scroll_y_anterior - y_muneca
+                        if abs(delta) > SCROLL_ZONA_MUERTA:
+                            scroll_acumulado += delta * SCROLL_SENSIBILIDAD
+                            pasos = int(scroll_acumulado)
+                            if pasos != 0:
+                                pyautogui.scroll(pasos)
+                                scroll_acumulado -= pasos
+                    scroll_y_anterior = y_muneca
+
+            else:
+                if pinza_izq:
+                    pinza_izq = False
+                    pyautogui.mouseUp()
+                pinza_der = False
+                estado = candidato = ESTADO_CURSOR
+                frames_candidato = 0
+                scroll_y_anterior = None
+                recalcular_offset = True
+
+            dibujar_interfaz(frame, lm, dedos, estado, pinza_izq, ratio_izq, ratio_der, w, h)
+            cv2.imshow("Hand Mouse - 'q' para salir", frame)
+
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+    if pinza_izq:
+        pyautogui.mouseUp()
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    main()
+</script>
+
+<script>
+  const CLAVES = new Set(['def','class','import','from','as','if','elif','else','while','for','in','not','and','or','return','break','continue','with','pass','True','False','None','try','except','finally','lambda','yield','is','global','nonlocal']);
+  function escapar(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function resaltar(codigo){
+    const re = /("""[\s\S]*?"""|'''[\s\S]*?'''|f?"(?:\\.|[^"\\\n])*"|f?'(?:\\.|[^'\\\n])*')|(#[^\n]*)|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_]\w*)\b|([\s\S])/g;
+    let out = '', m;
+    while((m = re.exec(codigo)) !== null){
+      if(m[1]) out += '<span class="str">' + escapar(m[1]) + '</span>';
+      else if(m[2]) out += '<span class="com">' + escapar(m[2]) + '</span>';
+      else if(m[3]) out += '<span class="num">' + m[3] + '</span>';
+      else if(m[4]) out += CLAVES.has(m[4]) ? '<span class="kw">' + m[4] + '</span>' : m[4];
+      else out += escapar(m[5]);
+    }
+    return out;
+  }
+
+  const fuente = document.getElementById('fuente').textContent.replace(/^\n/, '').replace(/\n\s*$/, '\n');
+  document.getElementById('codigo').innerHTML = resaltar(fuente);
+
+  const btnCopiar = document.getElementById('btn-copiar');
+  btnCopiar.addEventListener('click', () => {
+    navigator.clipboard.writeText(fuente).then(() => {
+      btnCopiar.textContent = '✓ ¡Copiado!';
+      setTimeout(() => { btnCopiar.textContent = '📋 Copiar código'; }, 1800);
+    }).catch(() => {
+      btnCopiar.textContent = 'Usa Ctrl+C sobre el código';
+      setTimeout(() => { btnCopiar.textContent = '📋 Copiar código'; }, 2500);
+    });
+  });
+</script>
+</body>
+</html>

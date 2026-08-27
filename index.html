@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aya Hibat Allah Aichoune · Desarrolladora Full Stack & Mobile</title>
+<meta name="description" content="Carta de presentación interactiva de Aya Hibat Allah Aichoune, Desarrolladora Full Stack & Mobile (Flutter, Laravel, Vue.js).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rosa:#e85d8a;
+    --rosa-suave:#fceef3;
+    --rosa-medio:#f7d4e0;
+    --lila:#8b5fbf;
+    --lila-suave:#f3edfa;
+    --tinta:#3a2e39;
+    --tinta-suave:#6f5f6e;
+    --crema:#fffaf7;
+    --blanco:#ffffff;
+    --dorado:#e9b44c;
+    --verde:#3e9e7c;
+    --sombra:0 10px 30px rgba(232,93,138,.12);
+    --radio:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    background:var(--crema);
+    color:var(--tinta);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+  ::selection{background:var(--rosa-medio)}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 6vw;
+    background:rgba(255,250,247,.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(232,93,138,.12);
+  }
+  nav .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--rosa);text-decoration:none}
+  nav .logo span{color:var(--lila)}
+  nav ul{display:flex;gap:26px;list-style:none}
+  nav ul a{color:var(--tinta-suave);text-decoration:none;font-weight:700;font-size:.9rem;transition:color .25s}
+  nav ul a:hover{color:var(--rosa)}
+  .nav-toggle{display:none;background:none;border:none;font-size:1.45rem;color:var(--rosa);cursor:pointer;line-height:1}
+  @media(max-width:760px){
+    nav ul{display:none}
+    .nav-toggle{display:block}
+    nav ul.abierto{
+      display:flex;flex-direction:column;gap:16px;
+      position:absolute;top:calc(100% + 10px);right:6vw;left:6vw;
+      background:rgba(255,250,247,.97);backdrop-filter:blur(12px);
+      border:1px solid rgba(232,93,138,.18);border-radius:18px;
+      padding:22px 24px;box-shadow:var(--sombra);text-align:center;
+    }
+  }
+
+  header{
+    position:relative;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:120px 6vw 80px;
+    background:linear-gradient(160deg,var(--rosa-suave) 0%,var(--crema) 45%,var(--lila-suave) 100%);
+    overflow:hidden;
+  }
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;animation:flotar 12s ease-in-out infinite}
+  .blob.b1{width:340px;height:340px;background:var(--rosa-medio);top:-80px;left:-80px}
+  .blob.b2{width:280px;height:280px;background:#e3d3f5;bottom:-60px;right:-40px;animation-delay:-4s}
+  .blob.b3{width:180px;height:180px;background:#fde3c8;top:40%;right:14%;animation-delay:-8s}
+  @keyframes flotar{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.06)}}
+
+  .sparkle{position:absolute;color:var(--dorado);animation:brillo 3s ease-in-out infinite;font-size:1.1rem;opacity:0}
+  @keyframes brillo{0%,100%{opacity:0;transform:scale(.5) rotate(0deg)}50%{opacity:.9;transform:scale(1.1) rotate(20deg)}}
+
+  .hero-inner{
+    position:relative;z-index:2;
+    display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center;
+    max-width:1080px;width:100%;
+  }
+  @media(max-width:860px){.hero-inner{grid-template-columns:1fr;text-align:center}}
+
+  .badge-disponible{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#e7f6ef;color:var(--verde);
+    padding:8px 18px;border-radius:999px;
+    font-weight:800;font-size:.85rem;
+    border:1px solid #bfe6d5;
+    animation:aparecer .8s ease both;
+  }
+  .badge-disponible .punto{width:9px;height:9px;border-radius:50%;background:var(--verde);animation:pulso 1.6s infinite}
+  @keyframes pulso{0%{box-shadow:0 0 0 0 rgba(62,158,124,.5)}70%{box-shadow:0 0 0 9px rgba(62,158,124,0)}100%{box-shadow:0 0 0 0 rgba(62,158,124,0)}}
+
+  header h1{
+    font-size:clamp(2.3rem,5.2vw,3.6rem);
+    line-height:1.12;margin:18px 0 10px;
+    animation:aparecer .8s .15s ease both;
+  }
+  header h1 em{font-style:italic;color:var(--rosa)}
+  .subtitulo{
+    font-size:1.12rem;color:var(--tinta-suave);font-weight:600;
+    animation:aparecer .8s .3s ease both;
+  }
+  .typing-wrap{margin:14px 0 26px;min-height:34px;animation:aparecer .8s .4s ease both}
+  .typing{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:1.25rem;color:var(--lila);font-weight:600;
+    border-right:2px solid var(--rosa);padding-right:4px;
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:aparecer .8s .55s ease both}
+  @media(max-width:860px){.hero-cta{justify-content:center}}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:999px;
+    font-weight:800;font-size:.95rem;text-decoration:none;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .btn:hover{transform:translateY(-3px)}
+  .btn-rosa{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;box-shadow:0 8px 22px rgba(232,93,138,.35)}
+  .btn-rosa:hover{box-shadow:0 12px 28px rgba(139,95,191,.4)}
+  .btn-borde{border:2px solid var(--rosa-medio);color:var(--rosa);background:rgba(255,255,255,.7)}
+  .btn-borde:hover{border-color:var(--rosa)}
+
+  .hero-foto{position:relative;display:flex;justify-content:center;animation:aparecer 1s .3s ease both}
+  .aro{
+    width:min(300px,64vw);aspect-ratio:1;border-radius:50%;
+    background:conic-gradient(from 180deg,var(--rosa),var(--lila),var(--dorado),var(--rosa));
+    padding:7px;animation:girar 14s linear infinite;
+  }
+  @keyframes girar{to{transform:rotate(360deg)}}
+  .foto-int{
+    width:100%;height:100%;border-radius:50%;
+    background:linear-gradient(150deg,#fff,var(--rosa-suave));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    animation:girar 14s linear infinite reverse;
+    text-align:center;padding:20px;
+  }
+  .foto-int .iniciales{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;background:linear-gradient(120deg,var(--rosa),var(--lila));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foto-int small{color:var(--tinta-suave);font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--rosa);font-size:1.5rem;animation:bajar 1.8s infinite;z-index:2}
+  @keyframes bajar{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,10px);opacity:1}}
+
+  @keyframes aparecer{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+  section{padding:90px 6vw;max-width:1080px;margin:0 auto}
+  .etiqueta{
+    display:inline-block;background:var(--rosa-suave);color:var(--rosa);
+    font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:6px 16px;border-radius:999px;margin-bottom:14px;
+  }
+  section h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:14px}
+  section h2 .deco{color:var(--rosa)}
+  .intro-seccion{color:var(--tinta-suave);max-width:640px;margin-bottom:44px}
+
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  .carta{
+    background:var(--blanco);border-radius:var(--radio);
+    padding:44px clamp(24px,5vw,56px);
+    box-shadow:var(--sombra);
+    border:1px solid rgba(232,93,138,.1);
+    position:relative;
+  }
+  .carta::before{
+    content:'❝';position:absolute;top:-26px;left:34px;
+    font-size:3.4rem;color:var(--rosa);
+    background:var(--crema);padding:0 10px;line-height:1;
+  }
+  .carta p{margin-bottom:16px;font-size:1.04rem}
+  .carta p:last-of-type{margin-bottom:0}
+  .carta strong{color:var(--rosa)}
+  .firma{margin-top:26px;text-align:right;font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--lila)}
+
+  .datos-rapidos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-top:34px}
+  .dato{
+    background:linear-gradient(150deg,#fff,var(--rosa-suave));
+    border:1px solid rgba(232,93,138,.14);
+    border-radius:16px;padding:20px;text-align:center;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .dato:hover{transform:translateY(-6px);box-shadow:var(--sombra)}
+  .dato .num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--rosa)}
+  .dato .txt{font-size:.85rem;color:var(--tinta-suave);font-weight:700}
+  .info-extra{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+
+  .timeline{position:relative;margin-top:10px}
+  .timeline::before{
+    content:'';position:absolute;left:11px;top:6px;bottom:6px;width:3px;
+    background:linear-gradient(var(--rosa),var(--lila));border-radius:3px;
+  }
+  .hito{position:relative;padding:0 0 42px 48px}
+  .hito:last-child{padding-bottom:0}
+  .hito::before{
+    content:'';position:absolute;left:2px;top:6px;
+    width:16px;height:16px;border-radius:50%;
+    background:#fff;border:4px solid var(--rosa);
+    box-shadow:0 0 0 5px var(--rosa-suave);
+  }
+  .hito .fecha{font-size:.8rem;font-weight:800;color:var(--lila);letter-spacing:.06em;text-transform:uppercase}
+  .hito h3{font-size:1.25rem;margin:4px 0 2px}
+  .hito .empresa{color:var(--rosa);font-weight:800;font-size:.95rem}
+  .hito ul{margin:10px 0 0 18px;color:var(--tinta-suave)}
+  .hito ul li{margin-bottom:6px}
+  .chip-actual{
+    display:inline-block;margin-left:8px;background:#e7f6ef;color:var(--verde);
+    font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:999px;vertical-align:middle;
+  }
+
+  .grid-proyectos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+  .proyecto{
+    background:var(--blanco);border-radius:var(--radio);padding:30px 26px;
+    box-shadow:var(--sombra);border:1px solid rgba(139,95,191,.1);
+    transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;
+  }
+  .proyecto::after{
+    content:'';position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--rosa),var(--lila));
+    transform:scaleX(0);transform-origin:left;transition:transform .4s;
+  }
+  .proyecto:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(139,95,191,.18)}
+  .proyecto:hover::after{transform:scaleX(1)}
+  .proyecto .icono{font-size:2rem;margin-bottom:12px}
+  .proyecto h3{font-size:1.15rem;margin-bottom:8px}
+  .proyecto p{font-size:.92rem;color:var(--tinta-suave)}
+  .premio-tag{
+    display:inline-block;margin-top:14px;background:#fdf3e0;color:#b07d20;
+    font-size:.74rem;font-weight:800;padding:4px 12px;border-radius:999px;
+  }
+
+  .grid-demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:28px}
+  .demo{
+    background:var(--blanco);border-radius:var(--radio);
+    box-shadow:var(--sombra);border:1px solid rgba(139,95,191,.12);
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .35s,box-shadow .35s;
+  }
+  .demo:hover{transform:translateY(-8px);box-shadow:0 20px 44px rgba(139,95,191,.22)}
+  .demo .barra-nav{
+    display:flex;align-items:center;gap:6px;
+    background:linear-gradient(90deg,var(--rosa-suave),var(--lila-suave));
+    padding:10px 14px;border-bottom:1px solid rgba(139,95,191,.12);
+  }
+  .demo .barra-nav .punto-nav{width:10px;height:10px;border-radius:50%}
+  .demo .barra-nav .punto-nav:nth-child(1){background:#f38ba8}
+  .demo .barra-nav .punto-nav:nth-child(2){background:#e9b44c}
+  .demo .barra-nav .punto-nav:nth-child(3){background:#3e9e7c}
+  .demo .barra-nav .url-falsa{
+    flex:1;margin-left:8px;background:rgba(255,255,255,.75);
+    border-radius:999px;padding:3px 14px;
+    font-size:.7rem;font-weight:700;color:var(--tinta-suave);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .demo .captura{position:relative;overflow:hidden;aspect-ratio:16/10;background:#1a1025}
+  .demo .captura img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .6s ease;
+  }
+  .demo:hover .captura img{transform:scale(1.07)}
+  .demo .captura .velo{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(58,46,57,.55));
+    opacity:0;transition:opacity .4s;
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;
+  }
+  .demo:hover .captura .velo{opacity:1}
+  .demo .captura .velo span{
+    background:rgba(255,255,255,.92);color:var(--rosa);
+    font-weight:800;font-size:.82rem;padding:8px 18px;border-radius:999px;
+  }
+  .demo .cuerpo{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .demo h3{font-size:1.12rem}
+  .demo p{font-size:.9rem;color:var(--tinta-suave);flex:1}
+  .demo .tecnologias{display:flex;flex-wrap:wrap;gap:7px}
+  .demo .tecnologias span{
+    background:var(--lila-suave);color:var(--lila);
+    font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:999px;
+  }
+  .demo .btn-demo{
+    margin-top:6px;align-self:flex-start;
+    display:inline-flex;align-items:center;gap:6px;
+    background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;
+    text-decoration:none;font-weight:800;font-size:.85rem;
+    padding:10px 22px;border-radius:999px;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .demo .btn-demo:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,93,138,.35)}
+  .nota-demos{
+    margin-top:26px;text-align:center;font-size:.85rem;color:var(--tinta-suave);
+    background:var(--rosa-suave);border:1px dashed var(--rosa-medio);
+    border-radius:14px;padding:12px 20px;
+  }
+
+  .demo .captura video{width:100%;height:100%;object-fit:cover;display:block;background:#1a1025}
+  .demo .captura svg{width:100%;height:100%;display:block;transition:transform .6s ease}
+  .demo:hover .captura svg{transform:scale(1.07)}
+
+  .grid-skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .caja-skill{
+    background:var(--blanco);border-radius:var(--radio);padding:28px;
+    box-shadow:var(--sombra);border:1px solid rgba(232,93,138,.1);
+  }
+  .caja-skill h3{font-size:1.05rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .caja-skill h3 .ic{font-size:1.3rem}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{
+    background:var(--lila-suave);color:var(--lila);
+    font-size:.82rem;font-weight:700;padding:7px 14px;border-radius:999px;
+    transition:transform .25s,background .25s,color .25s;cursor:default;
+  }
+  .chip:hover{transform:scale(1.08);background:var(--lila);color:#fff}
+  .chip.rosa{background:var(--rosa-suave);color:var(--rosa)}
+  .chip.rosa:hover{background:var(--rosa);color:#fff}
+
+  .barras{margin-top:6px}
+  .barra-item{margin-bottom:16px}
+  .barra-item .fila{display:flex;justify-content:space-between;font-size:.86rem;font-weight:800;margin-bottom:6px}
+  .barra-item .fila span:last-child{color:var(--tinta-suave)}
+  .barra{height:9px;background:var(--rosa-suave);border-radius:99px;overflow:hidden}
+  .barra i{
+    display:block;height:100%;width:0;border-radius:99px;
+    background:linear-gradient(90deg,var(--rosa),var(--lila));
+    transition:width 1.4s cubic-bezier(.25,.8,.3,1);
+  }
+
+  .soft-skills{margin-top:34px;text-align:center}
+  .soft-skills h3{font-size:1.1rem;margin-bottom:18px}
+  .soft-chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .soft{
+    background:#fff;border:2px dashed var(--rosa-medio);color:var(--tinta-suave);
+    padding:9px 20px;border-radius:999px;font-weight:700;font-size:.88rem;
+    transition:border-color .3s,color .3s,transform .3s;
+  }
+  .soft:hover{border-color:var(--rosa);color:var(--rosa);transform:translateY(-3px)}
+
+  .grid-premios{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+  .premio{
+    background:linear-gradient(150deg,#fffdf8,#fdf3e0);
+    border:1px solid #f3ddb0;border-radius:var(--radio);
+    padding:26px;display:flex;gap:16px;align-items:flex-start;
+    transition:transform .3s;
+  }
+  .premio:hover{transform:translateY(-6px) rotate(-.5deg)}
+  .premio .trofeo{font-size:1.8rem}
+  .premio h3{font-size:1rem;margin-bottom:4px}
+  .premio p{font-size:.85rem;color:var(--tinta-suave)}
+
+  .grid-edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+  .edu{
+    background:var(--blanco);border-radius:var(--radio);padding:28px;
+    box-shadow:var(--sombra);border-top:5px solid var(--rosa);
+    transition:transform .3s;
+  }
+  .edu:nth-child(2n){border-top-color:var(--lila)}
+  .edu:hover{transform:translateY(-6px)}
+  .edu .anio{font-size:.78rem;font-weight:800;color:var(--lila);letter-spacing:.08em}
+  .edu h3{font-size:1.08rem;margin:6px 0 4px}
+  .edu p{font-size:.88rem;color:var(--tinta-suave)}
+
+  .idiomas{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+  .idioma{
+    background:var(--blanco);border-radius:var(--radio);padding:26px 34px;text-align:center;
+    box-shadow:var(--sombra);border:1px solid rgba(232,93,138,.1);
+    min-width:150px;transition:transform .3s;
+  }
+  .idioma:hover{transform:translateY(-6px) scale(1.03)}
+  .idioma .bandera{font-size:2rem}
+  .idioma h3{font-size:1rem;margin:8px 0 2px}
+  .idioma .nivel{font-size:.8rem;font-weight:800;color:var(--rosa)}
+
+  .contacto{
+    background:linear-gradient(140deg,var(--rosa) 0%,var(--lila) 100%);
+    border-radius:calc(var(--radio) + 8px);
+    padding:60px clamp(24px,6vw,70px);
+    text-align:center;color:#fff;position:relative;overflow:hidden;
+  }
+  .contacto::before,.contacto::after{
+    content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.12);
+  }
+  .contacto::before{width:220px;height:220px;top:-70px;right:-50px}
+  .contacto::after{width:160px;height:160px;bottom:-50px;left:-30px}
+  .contacto h2{color:#fff;font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:12px}
+  .contacto p{max-width:520px;margin:0 auto 30px;opacity:.94}
+  .contacto-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;position:relative;z-index:2}
+  .contacto-links a{
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);
+    color:#fff;text-decoration:none;font-weight:800;font-size:.92rem;
+    padding:12px 24px;border-radius:999px;
+    transition:background .3s,transform .3s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .contacto-links a:hover{background:rgba(255,255,255,.3);transform:translateY(-3px)}
+
+  .grid-apps{display:grid;gap:28px}
+  .app-card{
+    background:var(--blanco);border-radius:var(--radio);
+    box-shadow:var(--sombra);border:1px solid rgba(139,95,191,.12);
+    padding:clamp(26px,4vw,48px);
+    display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,56px);
+    align-items:center;
+  }
+  @media(max-width:720px){.app-card{grid-template-columns:1fr;justify-items:center;text-align:center}}
+  .app-tag{
+    display:inline-flex;align-items:center;gap:7px;
+    background:#e7f6ef;color:var(--verde);border:1px solid #bfe6d5;
+    font-size:.78rem;font-weight:800;padding:6px 15px;border-radius:999px;
+  }
+  .app-info h3{font-size:1.5rem;margin:12px 0 12px}
+  .app-info p{color:var(--tinta-suave);margin-bottom:18px;max-width:560px}
+  .app-info .tecnologias{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+  @media(max-width:720px){.app-info .tecnologias{justify-content:center}}
+  .app-info .tecnologias span{
+    background:var(--lila-suave);color:var(--lila);
+    font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:999px;
+  }
+  .app-info .btn-demo{
+    display:inline-flex;align-items:center;gap:6px;
+    background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;
+    text-decoration:none;font-weight:800;font-size:.9rem;
+    padding:12px 26px;border-radius:999px;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .app-info .btn-demo:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,93,138,.35)}
+  .app-info .btn-demo.secundario{
+    background:none;border:2px solid var(--rosa-medio);color:var(--rosa);
+  }
+  .app-info .btn-demo.secundario:hover{border-color:var(--rosa);box-shadow:none}
+  .app-botones{display:flex;gap:10px;flex-wrap:wrap}
+  @media(max-width:900px){.app-botones{justify-content:center}}
+  .app-card.ancha{grid-template-columns:1.15fr 1fr}
+  @media(max-width:900px){.app-card.ancha{grid-template-columns:1fr}}
+  a.navegador{display:block;text-decoration:none}
+  .navegador{
+    width:100%;border-radius:18px;overflow:hidden;
+    border:1px solid rgba(139,95,191,.15);
+    box-shadow:0 18px 40px rgba(58,46,57,.16);
+    background:var(--blanco);
+    transition:transform .35s,box-shadow .35s;
+  }
+  .navegador:hover{transform:translateY(-5px);box-shadow:0 24px 50px rgba(139,95,191,.24)}
+  .navegador .barra{
+    display:flex;align-items:center;gap:6px;
+    background:linear-gradient(90deg,var(--rosa-suave),var(--lila-suave));
+    padding:10px 14px;border-bottom:1px solid rgba(139,95,191,.12);
+  }
+  .navegador .barra .punto-nav{width:10px;height:10px;border-radius:50%}
+  .navegador .barra .punto-nav:nth-child(1){background:#f38ba8}
+  .navegador .barra .punto-nav:nth-child(2){background:#e9b44c}
+  .navegador .barra .punto-nav:nth-child(3){background:#3e9e7c}
+  .navegador .barra .url-falsa{
+    flex:1;margin-left:8px;background:rgba(255,255,255,.75);
+    border-radius:999px;padding:3px 14px;
+    font-size:.7rem;font-weight:700;color:var(--tinta-suave);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .navegador .capturas{position:relative;aspect-ratio:16/9;background:#fff}
+  .navegador .capturas img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:top;
+    transition:opacity .6s ease;
+  }
+  .navegador .capturas img.segunda{opacity:0}
+  .app-card:hover .navegador .capturas img.segunda{opacity:1}
+
+  footer{text-align:center;padding:34px 6vw 40px;color:var(--tinta-suave);font-size:.85rem}
+  footer .corazon{color:var(--rosa)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#top">Aya <span>·</span> Dev</a>
+  <ul>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#demos">Demos</a></li>
+    <li><a href="#ia">IA</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+</nav>
+
+<header id="top">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <span class="sparkle" style="top:18%;left:12%">✦</span>
+  <span class="sparkle" style="top:30%;right:10%;animation-delay:1s">✦</span>
+  <span class="sparkle" style="bottom:22%;left:20%;animation-delay:2s">✦</span>
+  <span class="sparkle" style="top:60%;right:28%;animation-delay:1.5s">✧</span>
+
+  <div class="hero-inner">
+    <div>
+      <span class="badge-disponible"><span class="punto"></span>Abierta a nuevas oportunidades</span>
+      <h1>Hola, soy <em>Aya</em>,<br>y me encanta crear software.</h1>
+      <p class="subtitulo">Desarrolladora Full Stack &amp; Mobile · Santiago de Compostela, España</p>
+      <div class="typing-wrap"><span class="typing" id="typing"></span></div>
+      <div class="hero-cta">
+        <a class="btn btn-rosa" href="#contacto">💌 Hablemos</a>
+        <a class="btn btn-borde" href="#experiencia">Ver mi trayectoria</a>
+      </div>
+    </div>
+    <div class="hero-foto">
+      <div class="aro">
+        <div class="foto-int">
+          <span class="iniciales">A·H</span>
+          <small>Aya Hibat Allah Aichoune</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#sobre-mi">⌄</a>
+</header>
+
+<section id="sobre-mi">
+  <div class="reveal">
+    <span class="etiqueta">Carta de presentación</span>
+    <h2>Un poquito sobre mí <span class="deco">✿</span></h2>
+    <p class="intro-seccion">Más que una lista de tecnologías, esto es lo que me mueve como ingeniera de software.</p>
+  </div>
+
+  <div class="carta reveal">
+    <p>Soy <strong>ingeniera de software</strong> con más de <strong>3 años de experiencia</strong> construyendo aplicaciones móviles y plataformas web escalables. Me especializo en <strong>Flutter</strong> y en el ecosistema Full Stack con <strong>PHP/Laravel y Vue.js</strong>, y he tenido la suerte de trabajar en equipos remotos internacionales (Emiratos Árabes Unidos, Francia y España), lo que me ha enseñado a comunicarme con claridad, a organizarme con autonomía y a adaptarme rápido a cualquier equipo.</p>
+    <p>Mi formación une dos mundos que me apasionan: un <strong>Máster en Inteligencia Artificial</strong> y, actualmente, un <strong>Máster en Computación de Altas Prestaciones</strong> en la Universidade de Santiago de Compostela. Me encanta que la tecnología resuelva problemas reales: desde una app educativa usada por familias y profesores hasta un sistema de predicción de crisis epilépticas con IA.</p>
+    <p>Busco un equipo donde pueda <strong>aportar desde el primer día</strong>, seguir creciendo y construir productos de los que sentirme orgullosa. Si buscas a alguien que combine el desarrollo Full Stack y móvil con una base sólida en Inteligencia Artificial, hablemos.</p>
+    <p class="firma">— Aya ♡</p>
+  </div>
+
+  <div class="datos-rapidos">
+    <div class="dato reveal"><div class="num">3+</div><div class="txt">Años de experiencia</div></div>
+    <div class="dato reveal"><div class="num">3</div><div class="txt">Másteres (IA · Data Science · HPC)</div></div>
+    <div class="dato reveal"><div class="num">4</div><div class="txt">Idiomas</div></div>
+    <div class="dato reveal"><div class="num">3</div><div class="txt">Premios y reconocimientos</div></div>
+  </div>
+
+  <div class="info-extra reveal">
+    <span class="soft">📍 Santiago de Compostela, España</span>
+    <span class="soft">🚗 Carnet de conducir · sin vehículo propio</span>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="reveal">
+    <span class="etiqueta">Trayectoria</span>
+    <h2>Experiencia profesional <span class="deco">✦</span></h2>
+    <p class="intro-seccion">Tres años trabajando con equipos de tres países distintos, siempre con producto real en producción.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="hito reveal">
+      <span class="fecha">2025 — Actualidad</span><span class="chip-actual">Prácticas</span>
+      <h3>Desarrolladora Full Stack</h3>
+      <span class="empresa">ID Company · España</span>
+      <ul>
+        <li>Desarrollo de aplicaciones web con Laravel y Vue.js.</li>
+        <li>Diseño de bases de datos y consumo de APIs RESTful.</li>
+      </ul>
+    </div>
+    <div class="hito reveal">
+      <span class="fecha">2023 — 2025</span>
+      <h3>Desarrolladora Móvil (remoto)</h3>
+      <span class="empresa">Brokerspot · Emiratos Árabes Unidos</span>
+      <ul>
+        <li>Desarrollo de una plataforma inmobiliaria en Flutter, reduciendo los tiempos de carga un 20%.</li>
+        <li>Implementación de funcionalidades en tiempo real para gestión de alquileres y ventas.</li>
+      </ul>
+    </div>
+    <div class="hito reveal">
+      <span class="fecha">2022 — 2025</span>
+      <h3>Desarrolladora Móvil (remoto)</h3>
+      <span class="empresa">Eduworky · Francia</span>
+      <ul>
+        <li>Desarrollo de la app educativa Eduworky con módulos de pagos y gestión académica.</li>
+        <li>Mejora continua de la UI/UX para estudiantes, padres y profesores.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="reveal">
+    <span class="etiqueta">Portfolio</span>
+    <h2>Proyectos destacados <span class="deco">✧</span></h2>
+    <p class="intro-seccion">Proyectos con impacto real, dos de ellos premiados a nivel nacional e internacional.</p>
+  </div>
+
+  <div class="grid-proyectos">
+    <div class="proyecto reveal">
+      <div class="icono">🖊️</div>
+      <h3>Bolígrafo Inteligente</h3>
+      <p>Prototipo IoT (Arduino + software) para la digitalización automática de datos escritos a mano.</p>
+      <span class="premio-tag">🏆 Premiado internacionalmente</span>
+    </div>
+    <div class="proyecto reveal">
+      <div class="icono">🧠</div>
+      <h3>EEG AI Predictor</h3>
+      <p>Sistema en Python para la predicción de crisis epilépticas a partir de señales EEG. Proyecto de Máster en IA.</p>
+    </div>
+    <div class="proyecto reveal">
+      <div class="icono">🛒</div>
+      <h3>Allo Mouton</h3>
+      <p>Optimización de una plataforma e-commerce de alto volumen en Francia, con integración de pagos.</p>
+    </div>
+    <div class="proyecto reveal">
+      <div class="icono">🌱</div>
+      <h3>Zero Paper One</h3>
+      <p>Solución digital para la reducción del consumo de papel en las organizaciones.</p>
+      <span class="premio-tag">🏆 Premiado a nivel nacional</span>
+    </div>
+    <div class="proyecto reveal">
+      <div class="icono">🖐️</div>
+      <h3>Hand Mouse</h3>
+      <p>Control del ordenador con la cámara: cursor, clics, arrastre y scroll usando solo gestos de la mano, en tiempo real con Python y MediaPipe.</p>
+      <span class="premio-tag">▶ Demo abajo, en «IA en movimiento»</span>
+    </div>
+    <div class="proyecto reveal">
+      <div class="icono">💄</div>
+      <h3>Beauty Sales Dashboard</h3>
+      <p>Panel de ventas de cosmética en tiempo real con Python, Streamlit, PostgreSQL y Plotly: métricas, pedidos y gráficas en vivo.</p>
+      <span class="premio-tag">▶ Ficha abajo, en «Del código al producto»</span>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="reveal">
+    <span class="etiqueta">En producción</span>
+    <h2>Del código al producto <span class="deco">🚀</span></h2>
+    <p class="intro-seccion">Proyectos completos y funcionando de verdad, de la base de datos a la pantalla.</p>
+  </div>
+
+  <div class="grid-apps">
+    <div class="app-card ancha reveal">
+      <a class="navegador" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener" aria-label="Ver el proyecto Beauty Sales Dashboard">
+        <div class="barra">
+          <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+          <span class="url-falsa">beauty-sales-dashboard · Streamlit</span>
+        </div>
+        <div class="capturas">
+          <img src="demos/dashboard-ventas/capturas/dashboard-1.png" alt="Vista principal del Beauty Sales Dashboard: métricas de ingresos y tabla de últimos pedidos">
+          <img class="segunda" src="demos/dashboard-ventas/capturas/dashboard-2.png" alt="Gráficas del dashboard: ventas por producto y por ciudad">
+        </div>
+      </a>
+      <div class="app-info">
+        <span class="app-tag">📊 Datos en tiempo real</span>
+        <h3>💄 Beauty Sales Dashboard</h3>
+        <p>Panel de control que monitoriza en directo las ventas de una tienda de cosmética: ingresos, pedidos y gráficas por producto y ciudad, refrescándose solo cada 60 segundos sobre <strong>PostgreSQL</strong>, con un simulador de ventas incluido. Pasa el ratón por la captura para ver las gráficas.</p>
+        <div class="tecnologias">
+          <span>Python</span><span>Streamlit</span><span>PostgreSQL</span><span>Plotly</span><span>Pandas</span><span>SQLAlchemy</span>
+        </div>
+        <div class="app-botones">
+          <a class="btn-demo" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener">Ver proyecto y código ✨</a>
+          <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/Dashboard_live_sales" target="_blank" rel="noopener">🐙 GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demos">
+  <div class="reveal">
+    <span class="etiqueta">En vivo</span>
+    <h2>Mis proyectos, en acción <span class="deco">✦</span></h2>
+    <p class="intro-seccion">No te lo cuento, te lo enseño: cuatro experimentos visuales programados por mí que puedes abrir y tocar.</p>
+  </div>
+
+  <div class="grid-demos">
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">galaxia-interactiva · Three.js</span>
+      </div>
+      <a class="captura" href="demos/galaxia/index.html" target="_blank" rel="noopener">
+        <img src="assets/galaxia.jpg" alt="Captura de la galaxia 3D interactiva: disco espiral de partículas violetas y rosas">
+        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🌌 Galaxia Interactiva 3D</h3>
+        <p>Galaxia espiral generada en tiempo real con <strong>miles de partículas</strong>: disco, brazos y halo calculados de forma procedural. Arrastra para rotar la cámara y explora la escena con total libertad.</p>
+        <div class="tecnologias">
+          <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Renderizado 3D</span>
+        </div>
+        <a class="btn-demo" href="demos/galaxia/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
+      </div>
+    </div>
+
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">galaxia-espiral · Three.js</span>
+      </div>
+      <a class="captura" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">
+        <img src="assets/galaxia-espiral.jpg" alt="Captura de la galaxia espiral animada: brazos de partículas naranjas y azules girando sobre fondo negro">
+        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🌠 Galaxia Espiral Animada</h3>
+        <p>Galaxia espiral de <strong>100.000 partículas</strong> generada de forma procedural: tres brazos, degradado de color del núcleo al borde y una cámara que orbita sola alrededor de la escena. Arrastra para explorarla a tu ritmo.</p>
+        <div class="tecnologias">
+          <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Generación procedural</span>
+        </div>
+        <a class="btn-demo" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
+      </div>
+    </div>
+
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">agujero-negro · Three.js + Bloom</span>
+      </div>
+      <a class="captura" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">
+        <img src="assets/agujero-negro.jpg" alt="Captura de la simulación de agujero negro: disco de acreción brillante naranja y rojo sobre fondo estrellado">
+        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🕳️ Agujero Negro Galáctico</h3>
+        <p>Simulación de un agujero negro con su <strong>disco de acreción</strong> incandescente, post-procesado con efecto bloom, ondas de energía al hacer clic («Eco del disco») y cuatro temas de color: Inferno, Rubí, Plasma y Vacío.</p>
+        <div class="tecnologias">
+          <span>Three.js</span><span>WebGL</span><span>Post-procesado (Bloom)</span><span>Shaders</span>
+        </div>
+        <a class="btn-demo" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
+      </div>
+    </div>
+
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">red-neuronal-cuantica · 3D</span>
+      </div>
+      <a class="captura" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">
+        <img src="assets/red-neuronal.jpg" alt="Captura de la red neuronal cuántica 3D: nodos brillantes rosas conectados sobre fondo oscuro">
+        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🧠 Red Neuronal Cuántica 3D</h3>
+        <p>Visualización 3D de una red neuronal: haz clic para enviar <strong>pulsos de energía</strong> entre los nodos, arrastra para explorar la estructura y juega con los temas de color y la densidad de la red.</p>
+        <div class="tecnologias">
+          <span>JavaScript</span><span>Canvas / WebGL</span><span>Animación 3D</span><span>UI Glassmorphism</span>
+        </div>
+        <a class="btn-demo" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="nota-demos reveal">💡 Las demos se abren en una pestaña nueva y funcionan directamente en el navegador — sin instalar nada.</p>
+</section>
+
+<section id="ia">
+  <div class="reveal">
+    <span class="etiqueta">Inteligencia Artificial</span>
+    <h2>IA en movimiento <span class="deco">🤖</span></h2>
+    <p class="intro-seccion">Mi Máster en IA no se quedó en la teoría: aquí puedes ver mis modelos trabajando sobre vídeo real.</p>
+  </div>
+
+  <div class="grid-demos">
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">deteccion-objetos · Computer Vision</span>
+      </div>
+      <div class="captura">
+        <video controls preload="metadata" playsinline poster="assets/deteccion-objetos-poster.jpg">
+          <source src="assets/deteccion-objetos.mp4" type="video/mp4">
+          Tu navegador no puede reproducir este vídeo.
+        </video>
+      </div>
+      <div class="cuerpo">
+        <h3>🎯 Detección de objetos en vídeo</h3>
+        <p>Sistema de <strong>visión por computador</strong> que detecta, clasifica y sigue objetos en vídeo, dibujando en tiempo real las cajas delimitadoras y las etiquetas de cada elemento reconocido.</p>
+        <div class="tecnologias">
+          <span>Python</span><span>Deep Learning</span><span>Visión por Computador</span><span>Detección en tiempo real</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">hand-mouse · Python + MediaPipe</span>
+      </div>
+      <a class="captura" href="demos/hand-mouse/index.html" target="_blank" rel="noopener" aria-label="Ver el proyecto Hand Mouse: gestos y código">
+        <svg viewBox="0 0 640 400" role="img" aria-label="Ilustración del control del ratón por gestos: esqueleto de la mano detectado por la cámara y cursor en pantalla">
+          <defs>
+            <linearGradient id="fondoHM" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#241430"/>
+              <stop offset="1" stop-color="#12081c"/>
+            </linearGradient>
+            <radialGradient id="brilloHM" cx=".5" cy=".45" r=".65">
+              <stop offset="0" stop-color="#8b5fbf" stop-opacity=".35"/>
+              <stop offset="1" stop-color="#8b5fbf" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="640" height="400" fill="url(#fondoHM)"/>
+          <rect width="640" height="400" fill="url(#brilloHM)"/>
+          <rect x="96" y="56" width="448" height="288" rx="10" fill="none" stroke="#e9b44c" stroke-opacity=".5" stroke-width="2" stroke-dasharray="8 7"/>
+          <g stroke="#b18ae0" stroke-width="3" stroke-linecap="round" opacity=".85" fill="none">
+            <path d="M310,330 L262,308 L240,278 L240,225 L252,172"/>
+            <path d="M310,330 L280,248 L272,205 L266,178 L260,152"/>
+            <path d="M312,242 L314,192 L315,160 L316,130"/>
+            <path d="M342,248 L348,202 L351,174 L354,148"/>
+            <path d="M310,330 L368,260 L380,222 L386,200 L392,178"/>
+            <path d="M262,308 L280,248 L312,242 L342,248 L368,260"/>
+          </g>
+          <g fill="#ffffff">
+            <circle cx="310" cy="330" r="5"/>
+            <circle cx="262" cy="308" r="4"/><circle cx="240" cy="278" r="4"/><circle cx="240" cy="225" r="4"/>
+            <circle cx="280" cy="248" r="4"/><circle cx="272" cy="205" r="4"/><circle cx="266" cy="178" r="4"/>
+            <circle cx="312" cy="242" r="4"/><circle cx="314" cy="192" r="4"/><circle cx="315" cy="160" r="4"/>
+            <circle cx="342" cy="248" r="4"/><circle cx="348" cy="202" r="4"/><circle cx="351" cy="174" r="4"/>
+            <circle cx="368" cy="260" r="4"/><circle cx="380" cy="222" r="4"/><circle cx="386" cy="200" r="4"/>
+          </g>
+          <circle cx="252" cy="172" r="7" fill="#e85d8a"/>
+          <circle cx="260" cy="152" r="7" fill="#e85d8a"/>
+          <circle cx="316" cy="130" r="7" fill="#3e9e7c"/>
+          <circle cx="354" cy="148" r="7" fill="#3e9e7c"/>
+          <circle cx="392" cy="178" r="7" fill="#3e9e7c"/>
+          <circle cx="256" cy="161" r="22" fill="none" stroke="#e9b44c" stroke-width="2" stroke-dasharray="5 5" opacity=".9"/>
+          <g transform="translate(430,110)">
+            <circle cx="10" cy="14" r="26" fill="#e85d8a" opacity=".18"/>
+            <circle cx="10" cy="14" r="16" fill="#e85d8a" opacity=".25"/>
+            <polygon points="0,0 0,26 7.3,20 11.4,30 15.6,28.2 11.2,18.7 18.2,18.2" fill="#ffffff" stroke="#e85d8a" stroke-width="1.5"/>
+          </g>
+          <text x="112" y="92" font-family="Consolas,monospace" font-size="17" fill="#ffffff" opacity=".85">Pinza izq: 0.24  der: 0.78</text>
+          <text x="112" y="124" font-family="Consolas,monospace" font-size="23" font-weight="bold" fill="#3e9e7c">ARRASTRANDO / CLIC</text>
+        </svg>
+        <div class="velo"><span>▶ Ver gestos y código</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🖐️ Hand Mouse · controla el PC con la mano</h3>
+        <p>Control completo del ordenador <strong>sin tocar el ratón</strong>: la webcam detecta la mano y los gestos mueven el cursor, hacen clic, arrastran y hacen scroll. Con máquina de estados, clics con histéresis, suavizado del cursor y movimiento relativo, como al levantar un ratón real de la alfombrilla.</p>
+        <div class="tecnologias">
+          <span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>PyAutoGUI</span><span>Visión por Computador</span>
+        </div>
+        <a class="btn-demo" href="demos/hand-mouse/index.html" target="_blank" rel="noopener">Ver gestos y código ✨</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades">
+  <div class="reveal">
+    <span class="etiqueta">Stack</span>
+    <h2>Habilidades técnicas <span class="deco">✿</span></h2>
+    <p class="intro-seccion">Lo que uso cada día para convertir ideas en producto.</p>
+  </div>
+
+  <div class="grid-skills">
+    <div class="caja-skill reveal">
+      <h3><span class="ic">📱</span>Desarrollo móvil</h3>
+      <div class="barras">
+        <div class="barra-item"><div class="fila"><span>Flutter / Dart</span><span>Avanzado</span></div><div class="barra"><i data-w="92"></i></div></div>
+        <div class="barra-item"><div class="fila"><span>Criptografía móvil</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="75"></i></div></div>
+        <div class="barra-item"><div class="fila"><span>Firebase / notificaciones push</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="78"></i></div></div>
+      </div>
+    </div>
+    <div class="caja-skill reveal">
+      <h3><span class="ic">💻</span>Desarrollo web</h3>
+      <div class="barras">
+        <div class="barra-item"><div class="fila"><span>PHP / Laravel</span><span>Avanzado</span></div><div class="barra"><i data-w="88"></i></div></div>
+        <div class="barra-item"><div class="fila"><span>Vue.js / Nuxt.js</span><span>Avanzado</span></div><div class="barra"><i data-w="85"></i></div></div>
+        <div class="barra-item"><div class="fila"><span>JavaScript / HTML5 / CSS3</span><span>Avanzado</span></div><div class="barra"><i data-w="86"></i></div></div>
+      </div>
+    </div>
+    <div class="caja-skill reveal">
+      <h3><span class="ic">🗄️</span>Backend &amp; datos</h3>
+      <div class="chips">
+        <span class="chip">APIs RESTful</span><span class="chip">MySQL</span><span class="chip">SQLite</span>
+        <span class="chip">Pasarelas de pago</span><span class="chip">Autenticación &amp; JWT</span><span class="chip">WebSockets / tiempo real</span>
+      </div>
+    </div>
+    <div class="caja-skill reveal">
+      <h3><span class="ic">🤖</span>IA &amp; computación</h3>
+      <div class="chips">
+        <span class="chip rosa">Python</span><span class="chip rosa">Machine Learning</span><span class="chip rosa">NLP</span>
+        <span class="chip rosa">Procesamiento de señales (EEG)</span><span class="chip rosa">Computación de Altas Prestaciones</span><span class="chip rosa">C/C++</span>
+      </div>
+    </div>
+    <div class="caja-skill reveal">
+      <h3><span class="ic">🛠️</span>Herramientas &amp; DevOps</h3>
+      <div class="chips">
+        <span class="chip">Git / GitHub</span><span class="chip">Docker</span><span class="chip">Postman</span>
+        <span class="chip">Linux</span><span class="chip">CI/CD</span><span class="chip">LaTeX</span><span class="chip">Arduino</span>
+      </div>
+    </div>
+    <div class="caja-skill reveal">
+      <h3><span class="ic">🧭</span>Metodologías</h3>
+      <div class="chips">
+        <span class="chip rosa">Scrum / Agile</span><span class="chip rosa">Trabajo remoto internacional</span>
+        <span class="chip rosa">Code review</span><span class="chip rosa">Diseño UI/UX</span><span class="chip rosa">Testing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="soft-skills reveal">
+    <h3>Y lo que no se ve en el código ♡</h3>
+    <div class="soft-chips">
+      <span class="soft">🤝 Trabajo en equipo</span>
+      <span class="soft">🗣️ Comunicación clara</span>
+      <span class="soft">🌍 Adaptabilidad multicultural</span>
+      <span class="soft">🧩 Resolución de problemas</span>
+      <span class="soft">📚 Aprendizaje continuo</span>
+      <span class="soft">⏰ Autonomía y organización</span>
+    </div>
+  </div>
+</section>
+
+<section id="premios">
+  <div class="reveal">
+    <span class="etiqueta">Reconocimientos</span>
+    <h2>Premios y formación continua <span class="deco">✦</span></h2>
+  </div>
+  <div class="grid-premios">
+    <div class="premio reveal">
+      <span class="trofeo">🏅</span>
+      <div><h3>Mejor Artículo Científico</h3><p>SETIT 2022 · Sistemas Embebidos</p></div>
+    </div>
+    <div class="premio reveal">
+      <span class="trofeo">🥉</span>
+      <div><h3>3er Premio Internacional</h3><p>Future Scientists Competition · Jordania, 2022</p></div>
+    </div>
+    <div class="premio reveal">
+      <span class="trofeo">🎓</span>
+      <div><h3>Workshops especializados</h3><p>NLP con Python (2024) · Esteganografía móvil (2023)</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="educacion">
+  <div class="reveal">
+    <span class="etiqueta">Formación</span>
+    <h2>Educación <span class="deco">✧</span></h2>
+  </div>
+  <div class="grid-edu">
+    <div class="edu reveal">
+      <span class="anio">2025 — 2026</span>
+      <h3>Máster en Computación de Altas Prestaciones</h3>
+      <p>Universidade de Santiago de Compostela, España</p>
+    </div>
+    <div class="edu reveal">
+      <span class="anio">480 h · Online</span>
+      <h3>Máster en Data Science &amp; Desarrollo de IA</h3>
+      <p>Evolve, Madrid (100 % online en directo)</p>
+    </div>
+    <div class="edu reveal">
+      <span class="anio">2021 — 2023</span>
+      <h3>Máster en Inteligencia Artificial y Toma de Decisiones</h3>
+      <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
+    </div>
+    <div class="edu reveal">
+      <span class="anio">2018 — 2021</span>
+      <h3>Licenciatura en Sistemas Informáticos</h3>
+      <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
+    </div>
+  </div>
+</section>
+
+<section id="idiomas">
+  <div class="reveal" style="text-align:center">
+    <span class="etiqueta">Idiomas</span>
+    <h2>Hablo tu idioma <span class="deco">✿</span></h2>
+    <p class="intro-seccion" style="margin-left:auto;margin-right:auto">Cuatro idiomas para trabajar con equipos de cualquier parte del mundo.</p>
+  </div>
+  <div class="idiomas">
+    <div class="idioma reveal"><div class="bandera">🇪🇸</div><h3>Español</h3><span class="nivel">B2</span></div>
+    <div class="idioma reveal"><div class="bandera">🇫🇷</div><h3>Francés</h3><span class="nivel">C1</span></div>
+    <div class="idioma reveal"><div class="bandera">🇬🇧</div><h3>Inglés</h3><span class="nivel">B2</span></div>
+    <div class="idioma reveal"><div class="bandera">🇩🇿</div><h3>Árabe</h3><span class="nivel">Nativo</span></div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contacto reveal">
+    <h2>¿Construimos algo juntos? 💌</h2>
+    <p>Busco un nuevo reto profesional en España. Si crees que encajo en tu proyecto, me encantará conocerte.</p>
+    <div class="contacto-links">
+      <a href="mailto:aichouneaya@gmail.com">✉️ aichouneaya@gmail.com</a>
+      <a href="tel:+34602030506">📞 +34 602 030 506</a>
+      <a href="https://www.linkedin.com/in/aya-hibat-allah-aichoune/" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a href="https://github.com/Aya-Hibat-Allah-Aichoune" target="_blank" rel="noopener">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Hecho con <span class="corazon">♥</span> por Aya Hibat Allah Aichoune · Santiago de Compostela, 2026
+</footer>
+
+<script>
+  const frases = [
+    'Especialista en Flutter 📱',
+    'Full Stack: Laravel + Vue.js 💻',
+    'Apasionada de la IA 🤖',
+    'Lista para un nuevo reto en España ✨'
+  ];
+  const el = document.getElementById('typing');
+  let fi = 0, ci = 0, borrando = false;
+  function escribir(){
+    const frase = frases[fi];
+    el.textContent = frase.slice(0, ci);
+    if(!borrando){
+      if(ci < frase.length){ ci++; setTimeout(escribir, 55); }
+      else { borrando = true; setTimeout(escribir, 2100); }
+    } else {
+      if(ci > 0){ ci--; setTimeout(escribir, 28); }
+      else { borrando = false; fi = (fi+1) % frases.length; setTimeout(escribir, 350); }
+    }
+  }
+  escribir();
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.barra i').forEach(b => {
+          b.style.width = b.dataset.w + '%';
+        });
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('nav ul');
+  navToggle.addEventListener('click', () => {
+    const abierto = navMenu.classList.toggle('abierto');
+    navToggle.setAttribute('aria-expanded', abierto);
+    navToggle.textContent = abierto ? '✕' : '☰';
+    navToggle.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+  });
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMenu.classList.remove('abierto');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.textContent = '☰';
+    navToggle.setAttribute('aria-label', 'Abrir menú');
+  }));
+</script>
+</body>
+</html>

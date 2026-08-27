@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxia Espiral Animada</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas class="webgl"></canvas>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.querySelector('canvas.webgl');
+
+const scene = new THREE.Scene();
+
+const parametros = {
+  cantidad: 100000,
+  tamano: 0.01,
+  radio: 2.15,
+  brazos: 3,
+  giro: 3,
+  aleatoriedad: 5,
+  potenciaAleatoriedad: 4,
+  colorInterior: '#ff6030',
+  colorExterior: '#0949f0'
+};
+
+let material = null;
+let geometria = null;
+let puntos = null;
+
+const generarGalaxia = () => {
+  if (puntos !== null) {
+    geometria.dispose();
+    material.dispose();
+    scene.remove(puntos);
+  }
+
+  material = new THREE.PointsMaterial({
+    size: parametros.tamano,
+    sizeAttenuation: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true
+  });
+
+  geometria = new THREE.BufferGeometry();
+  const posiciones = new Float32Array(parametros.cantidad * 3);
+  const colores = new Float32Array(parametros.cantidad * 3);
+  const colorInterior = new THREE.Color(parametros.colorInterior);
+  const colorExterior = new THREE.Color(parametros.colorExterior);
+
+  for (let i = 0; i < parametros.cantidad; i++) {
+    const i3 = i * 3;
+    const radio = Math.pow(Math.random() * parametros.aleatoriedad, Math.random() * parametros.radio);
+    const anguloGiro = radio * parametros.giro;
+    const anguloBrazo = ((i % parametros.brazos) / parametros.brazos) * Math.PI * 2;
+
+    const signos = [1, -1];
+    const azarX = Math.pow(Math.random(), parametros.potenciaAleatoriedad) * signos[Math.floor(Math.random() * signos.length)];
+    const azarY = Math.pow(Math.random(), parametros.potenciaAleatoriedad) * signos[Math.floor(Math.random() * signos.length)];
+    const azarZ = Math.pow(Math.random(), parametros.potenciaAleatoriedad) * signos[Math.floor(Math.random() * signos.length)];
+
+    posiciones[i3] = Math.cos(anguloBrazo + anguloGiro) * radio + azarX;
+    posiciones[i3 + 1] = azarY;
+    posiciones[i3 + 2] = Math.sin(anguloBrazo + anguloGiro) * radio + azarZ;
+
+    const colorMezclado = colorInterior.clone();
+    colorMezclado.lerp(colorExterior, Math.random() * radio / parametros.radio);
+
+    colores[i3] = colorMezclado.r;
+    colores[i3 + 1] = colorMezclado.g;
+    colores[i3 + 2] = colorMezclado.b;
+  }
+
+  geometria.setAttribute('position', new THREE.BufferAttribute(posiciones, 3));
+  geometria.setAttribute('color', new THREE.BufferAttribute(colores, 3));
+
+  puntos = new THREE.Points(geometria, material);
+  scene.add(puntos);
+};
+generarGalaxia();
+
+const dimensiones = {
+  ancho: window.innerWidth,
+  alto: window.innerHeight
+};
+
+window.addEventListener('resize', () => {
+  dimensiones.ancho = window.innerWidth;
+  dimensiones.alto = window.innerHeight;
+
+  camara.aspect = dimensiones.ancho / dimensiones.alto;
+  camara.updateProjectionMatrix();
+
+  renderizador.setSize(dimensiones.ancho, dimensiones.alto);
+  renderizador.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+const camara = new THREE.PerspectiveCamera(75, dimensiones.ancho / dimensiones.alto, 0.1, 100);
+camara.position.set(3, 3, 3);
+scene.add(camara);
+
+const controles = new OrbitControls(camara, canvas);
+controles.enableDamping = true;
+
+const renderizador = new THREE.WebGLRenderer({
+  canvas: canvas,
+  preserveDrawingBuffer: true
+});
+renderizador.setSize(dimensiones.ancho, dimensiones.alto);
+renderizador.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const reloj = new THREE.Clock();
+
+const animar = () => {
+  const tiempo = reloj.getElapsedTime();
+
+  controles.update();
+  camara.position.x = Math.cos(tiempo * 0.05);
+  camara.position.z = Math.sin(tiempo * 0.05);
+  camara.lookAt(0, 0, 0);
+  renderizador.render(scene, camara);
+  window.requestAnimationFrame(animar);
+};
+
+animar();
+  </script>
+</body>
+</html>
