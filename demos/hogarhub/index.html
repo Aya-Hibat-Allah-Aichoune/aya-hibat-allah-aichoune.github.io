@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HogarHub · Plataforma inmobiliaria — Aya Aichoune</title>
+<meta name="description" content="HogarHub: plataforma inmobiliaria full-stack con API REST (FastAPI + SQLite), buscador, favoritos, calculadora hipotecaria y panel de estadísticas. Proyecto de Aya Hibat Allah Aichoune.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#">🏠 Hogar<em>Hub</em></a>
+  <nav>
+    <button class="navlink active" data-view="explore">Explorar</button>
+    <button class="navlink" data-view="favs">❤️ Favoritos <span id="favCount" class="pill">0</span></button>
+    <button class="navlink" data-view="dashboard">📊 Panel</button>
+    <button class="navlink" data-view="publish">➕ Publicar</button>
+  </nav>
+  <div class="top-actions">
+    <span id="apiMode" class="api-mode">Conectando…</span>
+    <span id="userChip" class="user-chip hidden"></span>
+    <button id="authBtn" class="btn btn-dark">Iniciar sesión</button>
+    <a class="back" href="../../index.html">← Portfolio</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">Plataforma full-stack · API REST · FastAPI + SQLite</span>
+    <h1>Encuentra el hogar<br>que va <em>contigo</em>.</h1>
+    <p>Busca, compara, guarda favoritos, calcula tu hipoteca y publica tu vivienda. Una plataforma inmobiliaria completa, construida de la base de datos a la pantalla.</p>
+    <form id="searchForm" class="searchbar">
+      <label>🔍 <input id="q" placeholder="Ciudad, barrio o palabra clave…"></label>
+      <label>🏷️ <select id="qType"><option value="">Tipo: todos</option><option>Piso</option><option>Casa</option><option>Ático</option><option>Estudio</option></select></label>
+      <label>💶 <select id="qMax"><option value="">Precio máx.</option><option value="150000">150.000 €</option><option value="250000">250.000 €</option><option value="400000">400.000 €</option><option value="600000">600.000 €</option></select></label>
+      <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+    <div class="hero-stats">
+      <div><strong id="stTotal">–</strong><span>Viviendas</span></div>
+      <div><strong id="stCities">–</strong><span>Ciudades</span></div>
+      <div><strong id="stAvg">–</strong><span>Precio medio</span></div>
+      <div><strong id="stVisits">–</strong><span>Visitas solicitadas</span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <!-- EXPLORAR / FAVORITOS -->
+  <section id="view-explore" class="view">
+    <div class="toolbar">
+      <div class="chips" id="cityChips"></div>
+      <div class="toolbar-right">
+        <select id="fRooms"><option value="">Habitaciones</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+        <select id="sort"><option value="">Ordenar: destacados</option><option value="low">Precio: menor a mayor</option><option value="high">Precio: mayor a menor</option><option value="m2">Más m²</option><option value="rooms">Más habitaciones</option></select>
+      </div>
+    </div>
+    <p id="resultCount" class="result-count"></p>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty hidden">😕 Sin resultados con esos filtros. <button class="link" onclick="resetFilters()">Limpiar filtros</button></div>
+  </section>
+
+  <!-- PANEL -->
+  <section id="view-dashboard" class="view hidden">
+    <h2 class="section-title">📊 Panel de la plataforma</h2>
+    <p class="section-sub">Datos en directo de la API: inventario, precios y actividad. Lo mismo que vería el equipo comercial cada mañana.</p>
+    <div class="kpis">
+      <article class="kpi"><span>Viviendas publicadas</span><strong id="kTotal">–</strong></article>
+      <article class="kpi"><span>Precio medio</span><strong id="kAvg">–</strong></article>
+      <article class="kpi"><span>Precio / m² medio</span><strong id="kM2">–</strong></article>
+      <article class="kpi"><span>Visitas solicitadas</span><strong id="kVisits">–</strong></article>
+    </div>
+    <div class="panels">
+      <article class="panel"><h3>Viviendas por ciudad</h3><canvas id="chartCity" width="520" height="260"></canvas></article>
+      <article class="panel"><h3>Viviendas por tipo</h3><canvas id="chartType" width="520" height="260"></canvas></article>
+    </div>
+    <article class="panel"><h3>Inventario completo</h3><div class="table-wrap"><table><thead><tr><th>Vivienda</th><th>Ciudad</th><th>Tipo</th><th>Hab.</th><th>m²</th><th>Precio</th><th>€/m²</th><th></th></tr></thead><tbody id="tableBody"></tbody></table></div></article>
+  </section>
+
+  <!-- PUBLICAR -->
+  <section id="view-publish" class="view hidden">
+    <h2 class="section-title">➕ Publica tu vivienda</h2>
+    <p class="section-sub">Crea un anuncio real: se guarda vía API (POST /api/properties) y aparece al instante en Explorar. Necesitas iniciar sesión — prueba con cualquier email.</p>
+    <form id="publishForm" class="form-card">
+      <label>Título del anuncio<input id="pTitle" required placeholder="Ej.: Piso reformado con balcón en el centro"></label>
+      <div class="form-row">
+        <label>Ciudad<input id="pCity" required list="cities" placeholder="Santiago de Compostela"><datalist id="cities"></datalist></label>
+        <label>Barrio / zona<input id="pZone" required placeholder="Ensanche"></label>
+      </div>
+      <div class="form-row">
+        <label>Precio (€)<input id="pPrice" required type="number" min="30000" step="1000" placeholder="210000"></label>
+        <label>Tipo<select id="pType"><option>Piso</option><option>Casa</option><option>Ático</option><option>Estudio</option></select></label>
+        <label>Habitaciones<input id="pRooms" required type="number" min="1" max="10" value="3"></label>
+        <label>Baños<input id="pBaths" required type="number" min="1" max="6" value="1"></label>
+        <label>m²<input id="pM2" required type="number" min="20" max="600" value="85"></label>
+      </div>
+      <label>URL de la foto<input id="pImg" placeholder="https://… (opcional, si lo dejas vacío usamos una por defecto)"></label>
+      <label>Descripción<textarea id="pDesc" rows="3" placeholder="Cuenta lo mejor de la vivienda…"></textarea></label>
+      <button class="btn btn-primary btn-lg" type="submit">Publicar vivienda 🚀</button>
+      <p id="publishMsg" class="form-msg"></p>
+    </form>
+  </section>
+</main>
+
+<!-- DETALLE -->
+<dialog id="detailDialog">
+  <button class="close" onclick="detailDialog.close()">✕</button>
+  <img id="dImg" alt="">
+  <div class="detail-body">
+    <div class="detail-head"><div><span id="dBadge" class="badge"></span><h2 id="dTitle"></h2><p id="dPlace" class="muted"></p></div><div class="detail-price"><strong id="dPrice"></strong><span id="dM2"></span></div></div>
+    <div id="dSpecs" class="specs"></div>
+    <p id="dDesc"></p>
+    <div id="dFeatures" class="features"></div>
+    <div class="detail-cols">
+      <form id="mortgageForm" class="mini-card">
+        <h3>🏦 Calcula tu hipoteca</h3>
+        <label>Entrada (%)<input id="mDown" type="number" value="20" min="0" max="80"></label>
+        <label>Plazo (años)<input id="mYears" type="number" value="30" min="5" max="40"></label>
+        <label>Interés (% TIN)<input id="mRate" type="number" value="3.2" step="0.1" min="0.5" max="10"></label>
+        <p class="mortgage-result">Cuota mensual: <strong id="mResult">–</strong></p>
+      </form>
+      <form id="visitForm" class="mini-card">
+        <h3>📅 Solicitar visita</h3>
+        <label>Tu nombre<input id="vName" required placeholder="Nombre y apellido"></label>
+        <label>Email<input id="vEmail" required type="email" placeholder="tu@email.com"></label>
+        <label>Fecha<input id="vDate" required type="date"></label>
+        <button class="btn btn-primary" type="submit">Solicitar visita</button>
+        <p id="visitMsg" class="form-msg"></p>
+        <p class="muted small">Agente: <span id="dAgent"></span></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<!-- LOGIN -->
+<dialog id="authDialog">
+  <button class="close" onclick="authDialog.close()">✕</button>
+  <form id="authForm" class="auth-box">
+    <h2>👋 Hola de nuevo</h2><p class="muted">Demo: entra con cualquier email y contraseña (mín. 4 caracteres). Recibes un token, como con JWT en producción.</p>
+    <label>Email<input id="aEmail" required type="email" placeholder="aya@ejemplo.com"></label>
+    <label>Contraseña<input id="aPass" required type="password" minlength="4" placeholder="••••"></label>
+    <button class="btn btn-primary btn-lg" type="submit">Entrar y obtener token 🔐</button>
+    <p id="authMsg" class="form-msg"></p>
+  </form>
+</dialog>
+
+<div id="toast" role="status"></div>
+
+<footer>
+  <p><strong>HogarHub</strong> · Proyecto full-stack de <strong>Aya Hibat Allah Aichoune</strong></p>
+  <p class="muted">Frontend HTML/CSS/JS · API REST FastAPI + SQLite (carpeta <code>backend/</code>) · La demo usa la misma API en modo local si el servidor no está activo · <a href="README.md" target="_blank">README técnico</a> · <a href="../../index.html">Volver al portfolio</a></p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
