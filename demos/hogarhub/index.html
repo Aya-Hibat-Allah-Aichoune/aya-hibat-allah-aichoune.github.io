@@ -10,12 +10,12 @@
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="#">🏠 Hogar<em>Hub</em></a>
+  <a class="brand" href="#"><svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>Hogar<em>Hub</em></a>
   <nav>
     <button class="navlink active" data-view="explore">Explorar</button>
-    <button class="navlink" data-view="favs">❤️ Favoritos <span id="favCount" class="pill">0</span></button>
-    <button class="navlink" data-view="dashboard">📊 Panel</button>
-    <button class="navlink" data-view="publish">➕ Publicar</button>
+    <button class="navlink" data-view="favs">Favoritos <span id="favCount" class="pill">0</span></button>
+    <button class="navlink" data-view="dashboard">Panel</button>
+    <button class="navlink" data-view="publish">Publicar</button>
   </nav>
   <div class="top-actions">
     <span id="apiMode" class="api-mode">Conectando…</span>
@@ -31,9 +31,9 @@
     <h1>Encuentra el hogar<br>que va <em>contigo</em>.</h1>
     <p>Busca, compara, guarda favoritos, calcula tu hipoteca y publica tu vivienda. Una plataforma inmobiliaria completa, construida de la base de datos a la pantalla.</p>
     <form id="searchForm" class="searchbar">
-      <label>🔍 <input id="q" placeholder="Ciudad, barrio o palabra clave…"></label>
-      <label>🏷️ <select id="qType"><option value="">Tipo: todos</option><option>Piso</option><option>Casa</option><option>Ático</option><option>Estudio</option></select></label>
-      <label>💶 <select id="qMax"><option value="">Precio máx.</option><option value="150000">150.000 €</option><option value="250000">250.000 €</option><option value="400000">400.000 €</option><option value="600000">600.000 €</option></select></label>
+      <label><span class="field-label">Buscar</span><input id="q" placeholder="Ciudad, barrio o palabra clave…"></label>
+      <label><span class="field-label">Tipo</span><select id="qType"><option value="">Tipo: todos</option><option>Piso</option><option>Casa</option><option>Ático</option><option>Estudio</option></select></label>
+      <label><span class="field-label">Precio</span><select id="qMax"><option value="">Precio máx.</option><option value="150000">150.000 €</option><option value="250000">250.000 €</option><option value="400000">400.000 €</option><option value="600000">600.000 €</option></select></label>
       <button class="btn btn-primary" type="submit">Buscar</button>
     </form>
     <div class="hero-stats">
@@ -57,12 +57,12 @@
     </div>
     <p id="resultCount" class="result-count"></p>
     <div id="grid" class="grid"></div>
-    <div id="empty" class="empty hidden">😕 Sin resultados con esos filtros. <button class="link" onclick="resetFilters()">Limpiar filtros</button></div>
+    <div id="empty" class="empty hidden">Sin resultados con esos filtros. <button class="link" onclick="resetFilters()">Limpiar filtros</button></div>
   </section>
 
   <!-- PANEL -->
   <section id="view-dashboard" class="view hidden">
-    <h2 class="section-title">📊 Panel de la plataforma</h2>
+    <h2 class="section-title">Panel de la plataforma</h2>
     <p class="section-sub">Datos en directo de la API: inventario, precios y actividad. Lo mismo que vería el equipo comercial cada mañana.</p>
     <div class="kpis">
       <article class="kpi"><span>Viviendas publicadas</span><strong id="kTotal">–</strong></article>
@@ -79,7 +79,7 @@
 
   <!-- PUBLICAR -->
   <section id="view-publish" class="view hidden">
-    <h2 class="section-title">➕ Publica tu vivienda</h2>
+    <h2 class="section-title">Publica tu vivienda</h2>
     <p class="section-sub">Crea un anuncio real: se guarda vía API (POST /api/properties) y aparece al instante en Explorar. Necesitas iniciar sesión — prueba con cualquier email.</p>
     <form id="publishForm" class="form-card">
       <label>Título del anuncio<input id="pTitle" required placeholder="Ej.: Piso reformado con balcón en el centro"></label>
@@ -96,7 +96,7 @@
       </div>
       <label>URL de la foto<input id="pImg" placeholder="https://… (opcional, si lo dejas vacío usamos una por defecto)"></label>
       <label>Descripción<textarea id="pDesc" rows="3" placeholder="Cuenta lo mejor de la vivienda…"></textarea></label>
-      <button class="btn btn-primary btn-lg" type="submit">Publicar vivienda 🚀</button>
+      <button class="btn btn-primary btn-lg" type="submit">Publicar vivienda</button>
       <p id="publishMsg" class="form-msg"></p>
     </form>
   </section>
@@ -113,14 +113,14 @@
     <div id="dFeatures" class="features"></div>
     <div class="detail-cols">
       <form id="mortgageForm" class="mini-card">
-        <h3>🏦 Calcula tu hipoteca</h3>
+        <h3>Calcula tu hipoteca</h3>
         <label>Entrada (%)<input id="mDown" type="number" value="20" min="0" max="80"></label>
         <label>Plazo (años)<input id="mYears" type="number" value="30" min="5" max="40"></label>
         <label>Interés (% TIN)<input id="mRate" type="number" value="3.2" step="0.1" min="0.5" max="10"></label>
         <p class="mortgage-result">Cuota mensual: <strong id="mResult">–</strong></p>
       </form>
       <form id="visitForm" class="mini-card">
-        <h3>📅 Solicitar visita</h3>
+        <h3>Solicitar visita</h3>
         <label>Tu nombre<input id="vName" required placeholder="Nombre y apellido"></label>
         <label>Email<input id="vEmail" required type="email" placeholder="tu@email.com"></label>
         <label>Fecha<input id="vDate" required type="date"></label>
@@ -136,10 +136,10 @@
 <dialog id="authDialog">
   <button class="close" onclick="authDialog.close()">✕</button>
   <form id="authForm" class="auth-box">
-    <h2>👋 Hola de nuevo</h2><p class="muted">Demo: entra con cualquier email y contraseña (mín. 4 caracteres). Recibes un token, como con JWT en producción.</p>
+    <h2>Accede a tu cuenta</h2><p class="muted">Demo: entra con cualquier email y contraseña (mín. 4 caracteres). Recibes un token, como con JWT en producción.</p>
     <label>Email<input id="aEmail" required type="email" placeholder="aya@ejemplo.com"></label>
     <label>Contraseña<input id="aPass" required type="password" minlength="4" placeholder="••••"></label>
-    <button class="btn btn-primary btn-lg" type="submit">Entrar y obtener token 🔐</button>
+    <button class="btn btn-primary btn-lg" type="submit">Entrar y obtener token</button>
     <p id="authMsg" class="form-msg"></p>
   </form>
 </dialog>

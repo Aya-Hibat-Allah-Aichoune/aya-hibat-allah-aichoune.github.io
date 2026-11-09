@@ -63,7 +63,7 @@
   };
 
   window.HogarAPI = {
-    mode: () => backendAlive ? "Backend FastAPI conectado 🟢" : "Modo demo local 🟡 (misma API REST)",
+    mode: () => backendAlive ? "Backend FastAPI conectado" : "Modo demo local (misma API REST)",
     token: () => localStorage.getItem(TOKEN_KEY),
     setToken: (t) => t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY),
     favs: () => new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")),

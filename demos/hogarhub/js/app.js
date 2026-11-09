@@ -5,7 +5,8 @@ let filters = { q: "", city: "", type: "", rooms: "", max: "", sort: "" };
 let onlyFavs = false, current = null, allCache = [];
 
 function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2800); }
-function specs(p) { return `<span>🛏️ ${p.rooms} hab.</span><span>🛁 ${p.baths} baños</span><span>📐 ${p.m2} m²</span>`; }
+const HEART = (on) => `<svg viewBox="0 0 24 24" class="heart ${on ? "on" : ""}" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.7 1.2 4.6 2.6.4.7 1.9.7 2.3 0 1-1.4 2.5-2.6 4.7-2.6 3.6 0 5.7 3.5 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>`;
+function specs(p) { return `<span><strong>${p.rooms}</strong> hab.</span><span><strong>${p.baths}</strong> baños</span><span><strong>${p.m2}</strong> m²</span>`; }
 
 async function load() {
   let list = await HogarAPI.list(filters);
@@ -25,11 +26,11 @@ function renderGrid(list) {
     <article class="card" onclick="openDetail(${p.id})">
       <div class="photo"><img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop'">
         ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
-        <button class="fav" title="Guardar en favoritos" onclick="event.stopPropagation();toggleFav(${p.id})">${favs.has(p.id) ? "❤️" : "🤍"}</button>
+        <button class="fav" title="Guardar en favoritos" onclick="event.stopPropagation();toggleFav(${p.id})">${HEART(favs.has(p.id))}</button>
       </div>
       <div class="body">
         <div class="price-row"><span class="price">${fmt(p.price)}</span><span class="perm2">${fmt(Math.round(p.price / p.m2))}/m²</span></div>
-        <h3>${p.title}</h3><p class="place">📍 ${p.zone} · ${p.city}</p>
+        <h3>${p.title}</h3><p class="place">${p.zone} · ${p.city}</p>
         <div class="specs">${specs(p)}</div>
       </div>
     </article>`).join("");
@@ -41,17 +42,17 @@ async function renderHeaderStats() {
   $("apiMode").textContent = HogarAPI.mode();
   return s;
 }
-async function toggleFav(id) { HogarAPI.toggleFav(id); toast(HogarAPI.favs().has(id) ? "❤️ Guardado en favoritos" : "Eliminado de favoritos"); load(); window["toggleFav"] = toggleFav; }
+async function toggleFav(id) { HogarAPI.toggleFav(id); toast(HogarAPI.favs().has(id) ? "Guardado en favoritos" : "Eliminado de favoritos"); load(); window["toggleFav"] = toggleFav; }
 window.toggleFav = toggleFav;
 
 function openDetail(id) {
   const p = allCache.find(x => x.id === id); if (!p) return; current = p;
   $("dImg").src = p.img; $("dTitle").textContent = p.title;
-  $("dPlace").textContent = `📍 ${p.zone} · ${p.city} · Agente: ${p.agent}`;
+  $("dPlace").textContent = `${p.zone} · ${p.city} · Agente: ${p.agent}`;
   $("dAgent").textContent = p.agent;
   $("dBadge").textContent = p.badge || p.type; $("dBadge").style.display = "inline-block";
   $("dPrice").textContent = fmt(p.price); $("dM2").textContent = fmt(Math.round(p.price / p.m2)) + "/m²";
-  $("dSpecs").innerHTML = specs(p) + `<span>🏷️ ${p.type}</span>`;
+  $("dSpecs").innerHTML = specs(p) + `<span>${p.type}</span>`;
   $("dDesc").textContent = p.desc; $("dFeatures").innerHTML = p.features.map(f => `<span>✓ ${f}</span>`).join("");
   $("visitMsg").textContent = ""; calcMortgage(); $("detailDialog").showModal();
 }
@@ -102,7 +103,7 @@ async function renderDashboard() {
   drawBars($("chartType"), Object.entries(byType), "#db2777", v => v);
   const logged = !!HogarAPI.token();
   $("tableBody").innerHTML = ps.map(p => `<tr><td>${p.title.slice(0, 42)}…</td><td>${p.city}</td><td>${p.type}</td><td>${p.rooms}</td><td>${p.m2}</td><td>${fmt(p.price)}</td><td>${fmt(Math.round(p.price / p.m2))}</td>
-    <td>${logged ? `<button class="del" onclick="removeProp(${p.id})">Eliminar</button>` : `<span class="muted small">🔒 login</span>`}</td></tr>`).join("");
+    <td>${logged ? `<button class="del" onclick="removeProp(${p.id})">Eliminar</button>` : `<span class="muted small">Requiere sesión</span>`}</td></tr>`).join("");
 }
 function drawBars(cv, entries, color, fmtV) {
   const ctx = cv.getContext("2d"), W = cv.width, H = cv.height, max = Math.max(...entries.map(e => e[1]), 1);
@@ -115,24 +116,24 @@ function drawBars(cv, entries, color, fmtV) {
     const words = label.split(" "); ctx.fillText(words[0], x + bw / 2, H - 24); if (words[1]) ctx.fillText(words.slice(1).join(" "), x + bw / 2, H - 10);
   });
 }
-async function removeProp(id) { try { await HogarAPI.remove(id); toast("🗑️ Vivienda eliminada"); await refreshCache(); renderDashboard(); } catch (e) { toast(e.message); } }
+async function removeProp(id) { try { await HogarAPI.remove(id); toast("Vivienda eliminada"); await refreshCache(); renderDashboard(); } catch (e) { toast(e.message); } }
 window.removeProp = removeProp;
 
 /* Publish & auth & visit */
 function updateAuthUI() {
   const t = HogarAPI.token();
-  $("userChip").classList.toggle("hidden", !t); $("userChip").textContent = t ? "🔐 Sesión demo activa" : "";
+  $("userChip").classList.toggle("hidden", !t); $("userChip").textContent = t ? "Sesión demo activa" : "";
   $("authBtn").textContent = t ? "Cerrar sesión" : "Iniciar sesión";
 }
 $("authBtn").addEventListener("click", () => { if (HogarAPI.token()) { HogarAPI.setToken(null); updateAuthUI(); toast("Sesión cerrada"); } else { $("authMsg").textContent = ""; $("authDialog").showModal(); } });
 $("authForm").addEventListener("submit", async e => {
   e.preventDefault();
-  try { const r = await HogarAPI.login($("aEmail").value, $("aPass").value); HogarAPI.setToken(r.token); updateAuthUI(); $("authDialog").close(); toast(`✅ Bienvenida, ${r.user.name}. Token guardado.`); if (!$("view-publish").classList.contains("hidden")) $("publishMsg").textContent = "Sesión activa: ya puedes publicar."; }
+  try { const r = await HogarAPI.login($("aEmail").value, $("aPass").value); HogarAPI.setToken(r.token); updateAuthUI(); $("authDialog").close(); toast(`Bienvenida, ${r.user.name}. Token guardado.`); if (!$("view-publish").classList.contains("hidden")) $("publishMsg").textContent = "Sesión activa: ya puedes publicar."; }
   catch (err) { $("authMsg").textContent = err.message; $("authMsg").classList.add("err"); }
 });
 $("publishForm").addEventListener("submit", async e => {
   e.preventDefault(); const msg = $("publishMsg"); msg.classList.remove("err");
-  if (!HogarAPI.token()) { msg.textContent = "🔒 Primero inicia sesión (botón arriba). Es gratis y es demo."; msg.classList.add("err"); $("authDialog").showModal(); return; }
+  if (!HogarAPI.token()) { msg.textContent = "Primero inicia sesión (botón de la parte superior)."; msg.classList.add("err"); $("authDialog").showModal(); return; }
   try {
     const item = await HogarAPI.create({
       title: $("pTitle").value, city: $("pCity").value, zone: $("pZone").value, price: +$("pPrice").value,
@@ -140,14 +141,14 @@ $("publishForm").addEventListener("submit", async e => {
       img: $("pImg").value || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop",
       desc: $("pDesc").value || "Vivienda publicada desde el panel de HogarHub.", agent: "Tú (demo)"
     });
-    msg.textContent = `🎉 Publicada: «${item.title}». Ya está en Explorar.`; e.target.reset();
-    await refreshCache(); toast("🚀 Vivienda publicada");
+    msg.textContent = `Publicada: «${item.title}». Ya está en Explorar.`; e.target.reset();
+    await refreshCache(); toast("Vivienda publicada");
   } catch (err) { msg.textContent = err.message; msg.classList.add("err"); }
 });
 $("visitForm").addEventListener("submit", async e => {
   e.preventDefault(); if (!$("vDate").value) return;
   const r = await HogarAPI.contact({ property: current.id, name: $("vName").value, email: $("vEmail").value, date: $("vDate").value });
-  $("visitMsg").textContent = "✅ " + r.message; toast("📅 Visita solicitada"); renderHeaderStats();
+  $("visitMsg").textContent = r.message; toast("Visita solicitada"); renderHeaderStats();
 });
 
 /* Init */

@@ -1,4 +1,4 @@
-# 🏠 HogarHub — Plataforma inmobiliaria full-stack
+# HogarHub — Plataforma inmobiliaria full-stack
 
 > Proyecto insignia de **Aya Hibat Allah Aichoune** · Desarrolladora Full Stack & Mobile
 > Demo en vivo: https://aya-hibat-allah-aichoune.github.io/demos/hogarhub/
@@ -11,19 +11,19 @@ Nace de mi experiencia real en **Brokerspot (Emiratos Árabes)**, donde desarrol
 una plataforma inmobiliaria en Flutter: HogarHub es esa misma idea llevada a web
 con una API REST propia y una interfaz moderna.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 | Área | Qué hace |
 |---|---|
-| 🔍 Explorar | Búsqueda por texto, ciudad, tipo, habitaciones y precio · ordenación · tarjetas con €/m² |
-| ❤️ Favoritos | Guardado persistente, contador y vista filtrada |
-| 🏠 Detalle | Ficha completa, características, **calculadora de hipoteca** (cuota mensual en directo) |
-| 📅 Visitas | Formulario que registra la solicitud vía API (`POST /api/contact`) |
-| 🔐 Auth | Login con token (contrato tipo JWT): sin sesión no se puede publicar ni borrar |
-| ➕ Publicar | CRUD real: el anuncio aparece al instante en Explorar (`POST /api/properties`) |
-| 📊 Panel | KPIs, gráficas Canvas por ciudad/tipo, tabla de inventario y borrado con sesión |
+| Explorar | Búsqueda por texto, ciudad, tipo, habitaciones y precio · ordenación · tarjetas con €/m² |
+| Favoritos | Guardado persistente, contador y vista filtrada |
+| Detalle | Ficha completa, características, **calculadora de hipoteca** (cuota mensual en directo) |
+| Visitas | Formulario que registra la solicitud vía API (`POST /api/contact`) |
+| Auth | Login con token (contrato tipo JWT): sin sesión no se puede publicar ni borrar |
+| Publicar | CRUD real: el anuncio aparece al instante en Explorar (`POST /api/properties`) |
+| Panel | KPIs, gráficas Canvas por ciudad/tipo, tabla de inventario y borrado con sesión |
 
-## 🧱 Arquitectura
+## Arquitectura
 
 ```
 demos/hogarhub/
@@ -41,9 +41,9 @@ demos/hogarhub/
 **Idea clave para entrevistas:** el frontend habla siempre con la misma API REST.
 En GitHub Pages (sin servidor) un motor local responde con esa interfaz; en local,
 levantas FastAPI y la demo se conecta sola a `http://localhost:8000` — el chip
-superior cambia a «Backend FastAPI conectado 🟢».
+superior cambia a «Backend FastAPI conectado ».
 
-## 🚀 Ejecutar el backend
+## Ejecutar el backend
 
 ```bash
 cd demos/hogarhub/backend
@@ -52,7 +52,7 @@ uvicorn main:app --reload --port 8000
 # Swagger: http://localhost:8000/docs
 ```
 
-## 🔌 API
+## API
 
 | Método | Ruta | Auth | Descripción |
 |---|---|---|---|
@@ -64,14 +64,14 @@ uvicorn main:app --reload --port 8000
 | POST | `/api/contact` | — | Solicitar visita |
 | GET | `/api/stats` | — | KPIs de la plataforma |
 
-## 🛠️ Stack
+## Stack
 
 Frontend HTML/CSS/JS (sin frameworks, para demostrar fundamentos) · FastAPI ·
 SQLite · Pydantic · REST · Token auth · Canvas charts · localStorage ·
 Responsive design. El mismo patrón API lo aplico en producción con
 **Laravel + Vue.js** y en móvil con **Flutter**.
 
-## 📄 Para mi CV (copiar/pegar)
+## Para mi CV (copiar/pegar)
 
 - *Desarrollé HogarHub, plataforma inmobiliaria full-stack (FastAPI + SQLite + JS):
   buscador con filtros, auth por token, CRUD completo, calculadora hipotecaria y

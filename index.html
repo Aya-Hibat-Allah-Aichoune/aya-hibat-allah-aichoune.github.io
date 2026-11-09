@@ -380,6 +380,7 @@
   }
   .idioma:hover{transform:translateY(-6px) scale(1.03)}
   .idioma .bandera{font-size:2rem}
+  .idioma .bandera.code{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--lila);background:var(--lila-suave);border:1px solid rgba(139,95,191,.18);width:58px;height:58px;line-height:58px;border-radius:50%;margin:0 auto}
   .idioma h3{font-size:1rem;margin:8px 0 2px}
   .idioma .nivel{font-size:.8rem;font-weight:800;color:var(--rosa)}
 
@@ -479,546 +480,551 @@
 
   footer{text-align:center;padding:34px 6vw 40px;color:var(--tinta-suave);font-size:.85rem}
   footer .corazon{color:var(--rosa)}
+
+  /* Professional responsive polish */
+  @media(max-width:760px){
+    section{padding:62px 5vw}
+    header{padding:104px 5vw 64px}
+    .grid-proyectos,.grid-demos,.grid-skills,.grid-premios,.grid-edu{grid-template-columns:1fr}
+    .app-card{padding:24px 20px}
+    .contacto{padding:42px 22px}
+    .contacto-links{flex-direction:column;align-items:stretch}
+    .contacto-links a{justify-content:center}
+    .hero-cta{flex-direction:column;align-items:stretch}
+    .hero-cta .btn{justify-content:center}
+    .idiomas{display:grid;grid-template-columns:1fr 1fr}
+    .idioma{min-width:0;padding:20px 10px}
+    .carta{padding:34px 22px}
+    .dato .num{font-size:1.6rem}
+  }
+  @media(max-width:420px){ .idiomas{grid-template-columns:1fr} nav{padding:12px 4vw} }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="#top">Aya <span>·</span> Dev</a>
-  <ul>
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#experiencia">Experiencia</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#apps">Apps</a></li>
-    <li><a href="#demos">Demos</a></li>
-    <li><a href="#ia">IA</a></li>
-    <li><a href="#habilidades">Habilidades</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+ <a class="logo" href="#top">Aya <span>·</span> Dev</a>
+ <ul>
+ <li><a href="#sobre-mi">Sobre mí</a></li>
+ <li><a href="#experiencia">Experiencia</a></li>
+ <li><a href="#proyectos">Proyectos</a></li>
+ <li><a href="#apps">Apps</a></li>
+ <li><a href="#demos">Demos</a></li>
+ <li><a href="#ia">IA</a></li>
+ <li><a href="#habilidades">Habilidades</a></li>
+ <li><a href="#contacto">Contacto</a></li>
+ </ul>
+ <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"></button>
 </nav>
 
 <header id="top">
-  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
-  <span class="sparkle" style="top:18%;left:12%">✦</span>
-  <span class="sparkle" style="top:30%;right:10%;animation-delay:1s">✦</span>
-  <span class="sparkle" style="bottom:22%;left:20%;animation-delay:2s">✦</span>
-  <span class="sparkle" style="top:60%;right:28%;animation-delay:1.5s">✧</span>
+ <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+ <span class="sparkle" style="top:18%;left:12%">✦</span>
+ <span class="sparkle" style="top:30%;right:10%;animation-delay:1s">✦</span>
+ <span class="sparkle" style="bottom:22%;left:20%;animation-delay:2s">✦</span>
+ <span class="sparkle" style="top:60%;right:28%;animation-delay:1.5s">✧</span>
 
-  <div class="hero-inner">
-    <div>
-      <span class="badge-disponible"><span class="punto"></span>Abierta a nuevas oportunidades</span>
-      <h1>Hola, soy <em>Aya</em>,<br>y me encanta crear software.</h1>
-      <p class="subtitulo">Desarrolladora Full Stack &amp; Mobile · Santiago de Compostela, España</p>
-      <div class="typing-wrap"><span class="typing" id="typing"></span></div>
-      <div class="hero-cta">
-        <a class="btn btn-rosa" href="#contacto">💌 Hablemos</a>
-        <a class="btn btn-borde" href="#experiencia">Ver mi trayectoria</a>
-      </div>
-    </div>
-    <div class="hero-foto">
-      <div class="aro">
-        <div class="foto-int">
-          <img src="assets/aya.jpg" alt="Retrato de Aya Hibat Allah Aichoune">
-        </div>
-      </div>
-    </div>
-  </div>
-  <a class="scroll-hint" href="#sobre-mi">⌄</a>
+ <div class="hero-inner">
+ <div>
+ <span class="badge-disponible"><span class="punto"></span>Abierta a nuevas oportunidades</span>
+ <h1>Hola, soy <em>Aya</em>,<br>y me encanta crear software.</h1>
+ <p class="subtitulo">Desarrolladora Full Stack &amp; Mobile · Santiago de Compostela, España</p>
+ <div class="typing-wrap"><span class="typing" id="typing"></span></div>
+ <div class="hero-cta">
+ <a class="btn btn-rosa" href="#contacto">Hablemos</a>
+ <a class="btn btn-borde" href="#experiencia">Ver mi trayectoria</a>
+ </div>
+ </div>
+ <div class="hero-foto">
+ <div class="aro">
+ <div class="foto-int">
+ <img src="assets/aya.jpg" alt="Retrato de Aya Hibat Allah Aichoune">
+ </div>
+ </div>
+ </div>
+ </div>
+ <a class="scroll-hint" href="#sobre-mi">⌄</a>
 </header>
 
 <section id="sobre-mi">
-  <div class="reveal">
-    <span class="etiqueta">Carta de presentación</span>
-    <h2>Un poquito sobre mí <span class="deco">✿</span></h2>
-    <p class="intro-seccion">Más que una lista de tecnologías, esto es lo que me mueve como ingeniera de software.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Carta de presentación</span>
+ <h2>Un poquito sobre mí <span class="deco">✿</span></h2>
+ <p class="intro-seccion">Más que una lista de tecnologías, esto es lo que me mueve como ingeniera de software.</p>
+ </div>
 
-  <div class="carta reveal">
-    <p>Soy <strong>ingeniera de software</strong> con más de <strong>3 años de experiencia</strong> construyendo aplicaciones móviles y plataformas web escalables. Me especializo en <strong>Flutter</strong> y en el ecosistema Full Stack con <strong>PHP/Laravel y Vue.js</strong>, y he tenido la suerte de trabajar en equipos remotos internacionales (Emiratos Árabes Unidos, Francia y España), lo que me ha enseñado a comunicarme con claridad, a organizarme con autonomía y a adaptarme rápido a cualquier equipo.</p>
-    <p>Mi formación une dos mundos que me apasionan: un <strong>Máster en Inteligencia Artificial</strong> y, actualmente, un <strong>Máster en Computación de Altas Prestaciones</strong> en la Universidade de Santiago de Compostela. Me encanta que la tecnología resuelva problemas reales: desde una app educativa usada por familias y profesores hasta un sistema de predicción de crisis epilépticas con IA.</p>
-    <p>Busco un equipo donde pueda <strong>aportar desde el primer día</strong>, seguir creciendo y construir productos de los que sentirme orgullosa. Si buscas a alguien que combine el desarrollo Full Stack y móvil con una base sólida en Inteligencia Artificial, hablemos.</p>
-    <p class="firma">— Aya ♡</p>
-  </div>
+ <div class="carta reveal">
+ <p>Soy <strong>ingeniera de software</strong> con más de <strong>3 años de experiencia</strong> construyendo aplicaciones móviles y plataformas web escalables. Me especializo en <strong>Flutter</strong> y en el ecosistema Full Stack con <strong>PHP/Laravel y Vue.js</strong>, y he tenido la suerte de trabajar en equipos remotos internacionales (Emiratos Árabes Unidos, Francia y España), lo que me ha enseñado a comunicarme con claridad, a organizarme con autonomía y a adaptarme rápido a cualquier equipo.</p>
+ <p>Mi formación une dos mundos que me apasionan: un <strong>Máster en Inteligencia Artificial</strong> y, actualmente, un <strong>Máster en Computación de Altas Prestaciones</strong> en la Universidade de Santiago de Compostela. Me encanta que la tecnología resuelva problemas reales: desde una app educativa usada por familias y profesores hasta un sistema de predicción de crisis epilépticas con IA.</p>
+ <p>Busco un equipo donde pueda <strong>aportar desde el primer día</strong>, seguir creciendo y construir productos de los que sentirme orgullosa. Si buscas a alguien que combine el desarrollo Full Stack y móvil con una base sólida en Inteligencia Artificial, hablemos.</p>
+ <p class="firma">— Aya </p>
+ </div>
 
-  <div class="datos-rapidos">
-    <div class="dato reveal"><div class="num">3+</div><div class="txt">Años de experiencia</div></div>
-    <div class="dato reveal"><div class="num">3</div><div class="txt">Másteres (IA · Data Science · HPC)</div></div>
-    <div class="dato reveal"><div class="num">4</div><div class="txt">Idiomas</div></div>
-    <div class="dato reveal"><div class="num">3</div><div class="txt">Premios y reconocimientos</div></div>
-  </div>
+ <div class="datos-rapidos">
+ <div class="dato reveal"><div class="num">3+</div><div class="txt">Años de experiencia</div></div>
+ <div class="dato reveal"><div class="num">3</div><div class="txt">Másteres (IA · Data Science · HPC)</div></div>
+ <div class="dato reveal"><div class="num">4</div><div class="txt">Idiomas</div></div>
+ <div class="dato reveal"><div class="num">3</div><div class="txt">Premios y reconocimientos</div></div>
+ </div>
 
-  <div class="info-extra reveal">
-    <span class="soft">📍 Santiago de Compostela, España</span>
-    <span class="soft">🚗 Carnet de conducir · sin vehículo propio</span>
-  </div>
+ <div class="info-extra reveal">
+ <span class="soft">Santiago de Compostela, España</span>
+ <span class="soft">Carnet de conducir · sin vehículo propio</span>
+ </div>
 </section>
 
 <section id="experiencia">
-  <div class="reveal">
-    <span class="etiqueta">Trayectoria</span>
-    <h2>Experiencia profesional <span class="deco">✦</span></h2>
-    <p class="intro-seccion">Tres años trabajando con equipos de tres países distintos, siempre con producto real en producción.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Trayectoria</span>
+ <h2>Experiencia profesional <span class="deco">✦</span></h2>
+ <p class="intro-seccion">Tres años trabajando con equipos de tres países distintos, siempre con producto real en producción.</p>
+ </div>
 
-  <div class="timeline">
-    <div class="hito reveal">
-      <span class="fecha">Jun 2026 — Sep 2026</span><span class="chip-actual">Prácticas · 3 Meses</span>
-      <h3>Desarrolladora Full Stack</h3>
-      <span class="empresa">InvBit · Santiago de Compostela, España</span>
-      <ul>
-        <li>Desarrollo de aplicaciones web con Laravel y Vue.js.</li>
-        <li>Diseño de bases de datos y consumo de APIs RESTful.</li>
-      </ul>
-    </div>
-    <div class="hito reveal">
-      <span class="fecha">2023 — 2025</span>
-      <h3>Desarrolladora Móvil (remoto)</h3>
-      <span class="empresa">Brokerspot · Emiratos Árabes Unidos</span>
-      <ul>
-        <li>Desarrollo de una plataforma inmobiliaria en Flutter, reduciendo los tiempos de carga un 20%.</li>
-        <li>Implementación de funcionalidades en tiempo real para gestión de alquileres y ventas.</li>
-      </ul>
-    </div>
-    <div class="hito reveal">
-      <span class="fecha">2022 — 2025</span>
-      <h3>Desarrolladora Móvil (remoto)</h3>
-      <span class="empresa">Eduworky · Francia</span>
-      <ul>
-        <li>Desarrollo de la app educativa Eduworky con módulos de pagos y gestión académica.</li>
-        <li>Mejora continua de la UI/UX para estudiantes, padres y profesores.</li>
-      </ul>
-    </div>
-  </div>
+ <div class="timeline">
+ <div class="hito reveal">
+ <span class="fecha">Jun 2026 — Sep 2026</span><span class="chip-actual">Prácticas · 3 Meses</span>
+ <h3>Desarrolladora Full Stack</h3>
+ <span class="empresa">InvBit · Santiago de Compostela, España</span>
+ <ul>
+ <li>Desarrollo de aplicaciones web con Laravel y Vue.js.</li>
+ <li>Diseño de bases de datos y consumo de APIs RESTful.</li>
+ </ul>
+ </div>
+ <div class="hito reveal">
+ <span class="fecha">2023 — 2025</span>
+ <h3>Desarrolladora Móvil (remoto)</h3>
+ <span class="empresa">Brokerspot · Emiratos Árabes Unidos</span>
+ <ul>
+ <li>Desarrollo de una plataforma inmobiliaria en Flutter, reduciendo los tiempos de carga un 20%.</li>
+ <li>Implementación de funcionalidades en tiempo real para gestión de alquileres y ventas.</li>
+ </ul>
+ </div>
+ <div class="hito reveal">
+ <span class="fecha">2022 — 2025</span>
+ <h3>Desarrolladora Móvil (remoto)</h3>
+ <span class="empresa">Eduworky · Francia</span>
+ <ul>
+ <li>Desarrollo de la app educativa Eduworky con módulos de pagos y gestión académica.</li>
+ <li>Mejora continua de la UI/UX para estudiantes, padres y profesores.</li>
+ </ul>
+ </div>
+ </div>
 </section>
 
 <section id="proyectos">
-  <div class="reveal">
-    <span class="etiqueta">Portfolio</span>
-    <h2>Proyectos destacados <span class="deco">✧</span></h2>
-    <p class="intro-seccion">Proyectos con impacto real, dos de ellos premiados a nivel nacional e internacional.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Portfolio</span>
+ <h2>Proyectos destacados <span class="deco">✧</span></h2>
+ <p class="intro-seccion">Proyectos con impacto real, dos de ellos premiados a nivel nacional e internacional.</p>
+ </div>
 
-  <div class="grid-proyectos">
-    <div class="proyecto reveal" style="border:2px solid var(--rosa);background:linear-gradient(150deg,#fff,var(--rosa-suave))">
-      <div class="icono">🏠</div>
-      <h3>HogarHub · Plataforma inmobiliaria ⭐</h3>
-      <p><strong>Mi proyecto insignia full-stack:</strong> buscador con filtros, favoritos, calculadora de hipoteca, publicación con login y panel de estadísticas, sobre una API REST FastAPI + SQLite. <a href="demos/hogarhub/index.html" target="_blank" rel="noopener" style="color:var(--rosa);font-weight:800">Probar en vivo →</a></p>
-      <span class="premio-tag">⭐ Nuevo · Demo funcional + backend real</span>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🖊️</div>
-      <h3>Bolígrafo Inteligente</h3>
-      <p>Prototipo IoT (Arduino + software) para la digitalización automática de datos escritos a mano.</p>
-      <span class="premio-tag">🏆 Premiado internacionalmente</span>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🧠</div>
-      <h3>EEG AI Predictor</h3>
-      <p>Sistema en Python para la predicción de crisis epilépticas a partir de señales EEG. Proyecto de Máster en IA.</p>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🛒</div>
-      <h3>Allo Mouton</h3>
-      <p>Optimización de una plataforma e-commerce de alto volumen en Francia, con integración de pagos.</p>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🌱</div>
-      <h3>Zero Paper One</h3>
-      <p>Solución digital para la reducción del consumo de papel en las organizaciones.</p>
-      <span class="premio-tag">🏆 Premiado a nivel nacional</span>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🖐️</div>
-      <h3>Hand Mouse</h3>
-      <p>Control del ordenador con la cámara: cursor, clics, arrastre y scroll usando solo gestos de la mano, en tiempo real con Python y MediaPipe.</p>
-      <span class="premio-tag">▶ Demo abajo, en «IA en movimiento»</span>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">💄</div>
-      <h3>Beauty Sales Dashboard</h3>
-      <p>Panel de ventas de cosmética en tiempo real con Python, Streamlit, PostgreSQL y Plotly: métricas, pedidos y gráficas en vivo.</p>
-      <span class="premio-tag">▶ Ficha abajo, en «Del código al producto»</span>
-    </div>
-    <div class="proyecto reveal">
-      <div class="icono">🌾</div>
-      <h3>Asistente experto RAG</h3>
-      <p>Agente que responde preguntas sobre artículos científicos de teledetección agrícola citando documento y página: Gemini, ChromaDB y LangGraph con memoria de conversación. Desplegado y usable online.</p>
-      <span class="premio-tag">▶ Pruébalo abajo, en «IA en movimiento»</span>
-    </div>
-  </div>
+ <div class="grid-proyectos">
+ <div class="proyecto reveal" style="border:2px solid var(--rosa);background:linear-gradient(150deg,#fff,var(--rosa-suave))">
+ <h3>HogarHub · Plataforma inmobiliaria</h3>
+ <p><strong>Mi proyecto insignia full-stack:</strong> buscador con filtros, favoritos, calculadora de hipoteca, publicación con login y panel de estadísticas, sobre una API REST FastAPI + SQLite. <a href="demos/hogarhub/index.html" target="_blank" rel="noopener" style="color:var(--rosa);font-weight:800">Probar en vivo →</a></p>
+ <span class="premio-tag">Nuevo · Demo funcional + backend real</span>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Bolígrafo Inteligente</h3>
+ <p>Prototipo IoT (Arduino + software) para la digitalización automática de datos escritos a mano.</p>
+ <span class="premio-tag">Premiado internacionalmente</span>
+ </div>
+ <div class="proyecto reveal">
+ <h3>EEG AI Predictor</h3>
+ <p>Sistema en Python para la predicción de crisis epilépticas a partir de señales EEG. Proyecto de Máster en IA.</p>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Allo Mouton</h3>
+ <p>Optimización de una plataforma e-commerce de alto volumen en Francia, con integración de pagos.</p>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Zero Paper One</h3>
+ <p>Solución digital para la reducción del consumo de papel en las organizaciones.</p>
+ <span class="premio-tag">Premiado a nivel nacional</span>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Hand Mouse</h3>
+ <p>Control del ordenador con la cámara: cursor, clics, arrastre y scroll usando solo gestos de la mano, en tiempo real con Python y MediaPipe.</p>
+ <span class="premio-tag">▶ Demo abajo, en «IA en movimiento»</span>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Beauty Sales Dashboard</h3>
+ <p>Panel de ventas de cosmética en tiempo real con Python, Streamlit, PostgreSQL y Plotly: métricas, pedidos y gráficas en vivo.</p>
+ <span class="premio-tag">▶ Ficha abajo, en «Del código al producto»</span>
+ </div>
+ <div class="proyecto reveal">
+ <h3>Asistente experto RAG</h3>
+ <p>Agente que responde preguntas sobre artículos científicos de teledetección agrícola citando documento y página: Gemini, ChromaDB y LangGraph con memoria de conversación. Desplegado y usable online.</p>
+ <span class="premio-tag">▶ Pruébalo abajo, en «IA en movimiento»</span>
+ </div>
+ </div>
 </section>
 
 <section id="apps">
-  <div class="reveal">
-    <span class="etiqueta">En producción</span>
-    <h2>Del código al producto <span class="deco">🚀</span></h2>
-    <p class="intro-seccion">Proyectos completos y funcionando de verdad, de la base de datos a la pantalla.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">En producción</span>
+ <h2>Del código al producto <span class="deco"></span></h2>
+ <p class="intro-seccion">Proyectos completos y funcionando de verdad, de la base de datos a la pantalla.</p>
+ </div>
 
-  <div class="grid-apps">
-    <div class="app-card reveal" style="border:2px solid rgba(232,93,138,.35)">
-      <div style="background:linear-gradient(140deg,#0f172a,#4c1d95 60%,#db2777);border-radius:18px;padding:36px 26px;text-align:center;color:#fff;border:1px solid rgba(139,95,191,.15)">
-        <div style="font-size:3.4rem">🏠</div>
-        <h3 style="font-family:'Playfair Display',serif;margin:10px 0;color:#fff;font-size:1.5rem">HogarHub</h3>
-        <p style="font-size:.88rem;font-weight:700;opacity:.92">🔍 Busca · ❤️ Guarda · 🏦 Calcula tu hipoteca<br>➕ Publica · 📊 Analiza<br><br><span style="background:rgba(255,255,255,.18);padding:5px 12px;border-radius:999px">API REST · FastAPI + SQLite</span></p>
-      </div>
-      <div class="app-info">
-        <span class="app-tag">⭐ Proyecto insignia · Full-stack completo</span>
-        <h3>🏠 HogarHub — Plataforma inmobiliaria</h3>
-        <p>Mi plataforma más completa, inspirada en mi trabajo real en <strong>Brokerspot</strong>: buscador con filtros por ciudad/tipo/precio, favoritos, ficha con <strong>calculadora de hipoteca</strong>, solicitud de visitas, <strong>publicación de viviendas con login por token</strong> y panel con gráficas e inventario. Detrás hay una <strong>API REST real (FastAPI + SQLite)</strong> — la demo se conecta a ella en local y en Pages usa la misma API en modo local.</p>
-        <div class="tecnologias">
-          <span>FastAPI</span><span>SQLite</span><span>API REST</span><span>Auth por token</span><span>JavaScript</span><span>UI moderna</span><span>CRUD</span>
-        </div>
-        <div class="app-botones">
-          <a class="btn-demo" href="demos/hogarhub/index.html" target="_blank" rel="noopener">▶ Probar HogarHub ✨</a>
-          <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/aya-hibat-allah-aichoune.github.io/tree/main/demos/hogarhub" target="_blank" rel="noopener">🐙 Código + backend</a>
-        </div>
-      </div>
-    </div>
+ <div class="grid-apps">
+ <div class="app-card reveal" style="border:2px solid rgba(232,93,138,.35)">
+ <div style="background:linear-gradient(140deg,#0f172a,#4c1d95 60%,#db2777);border-radius:18px;padding:36px 26px;text-align:center;color:#fff;border:1px solid rgba(139,95,191,.15)">
+ <div style="font-size:3.4rem"></div>
+ <h3 style="font-family:'Playfair Display',serif;margin:10px 0;color:#fff;font-size:1.5rem">HogarHub</h3>
+ <p style="font-size:.88rem;font-weight:700;opacity:.92">Busca · ❤️ Guarda ·  Calcula tu hipoteca<br>➕ Publica ·  Analiza<br><br><span style="background:rgba(255,255,255,.18);padding:5px 12px;border-radius:999px">API REST · FastAPI + SQLite</span></p>
+ </div>
+ <div class="app-info">
+ <span class="app-tag">Proyecto insignia · Full-stack completo</span>
+ <h3>HogarHub — Plataforma inmobiliaria</h3>
+ <p>Mi plataforma más completa, inspirada en mi trabajo real en <strong>Brokerspot</strong>: buscador con filtros por ciudad/tipo/precio, favoritos, ficha con <strong>calculadora de hipoteca</strong>, solicitud de visitas, <strong>publicación de viviendas con login por token</strong> y panel con gráficas e inventario. Detrás hay una <strong>API REST real (FastAPI + SQLite)</strong> — la demo se conecta a ella en local y en Pages usa la misma API en modo local.</p>
+ <div class="tecnologias">
+ <span>FastAPI</span><span>SQLite</span><span>API REST</span><span>Auth por token</span><span>JavaScript</span><span>UI moderna</span><span>CRUD</span>
+ </div>
+ <div class="app-botones">
+ <a class="btn-demo" href="demos/hogarhub/index.html" target="_blank" rel="noopener">Probar HogarHub</a>
+ <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/aya-hibat-allah-aichoune.github.io/tree/main/demos/hogarhub" target="_blank" rel="noopener">Código + backend</a>
+ </div>
+ </div>
+ </div>
 
-    <div class="app-card ancha reveal">
-      <a class="navegador" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener" aria-label="Ver el proyecto Beauty Sales Dashboard">
-        <div class="barra">
-          <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-          <span class="url-falsa">beauty-sales-dashboard · Streamlit</span>
-        </div>
-        <div class="capturas">
-          <img src="demos/dashboard-ventas/capturas/dashboard-1.png" alt="Vista principal del Beauty Sales Dashboard: métricas de ingresos y tabla de últimos pedidos">
-          <img class="segunda" src="demos/dashboard-ventas/capturas/dashboard-2.png" alt="Gráficas del dashboard: ventas por producto y por ciudad">
-        </div>
-      </a>
-      <div class="app-info">
-        <span class="app-tag">📊 Datos en tiempo real</span>
-        <h3>💄 Beauty Sales Dashboard</h3>
-        <p>Panel de control que monitoriza en directo las ventas de una tienda de cosmética: ingresos, pedidos y gráficas por producto y ciudad, refrescándose solo cada 60 segundos sobre <strong>PostgreSQL</strong>, con un simulador de ventas incluido. Pasa el ratón por la captura para ver las gráficas.</p>
-        <div class="tecnologias">
-          <span>Python</span><span>Streamlit</span><span>PostgreSQL</span><span>Plotly</span><span>Pandas</span><span>SQLAlchemy</span>
-        </div>
-        <div class="app-botones">
-          <a class="btn-demo" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener">Ver proyecto y código ✨</a>
-          <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/Dashboard_live_sales" target="_blank" rel="noopener">🐙 GitHub</a>
-        </div>
-      </div>
-    </div>
-  </div>
+ <div class="app-card ancha reveal">
+ <a class="navegador" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener" aria-label="Ver el proyecto Beauty Sales Dashboard">
+ <div class="barra">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">beauty-sales-dashboard · Streamlit</span>
+ </div>
+ <div class="capturas">
+ <img src="demos/dashboard-ventas/capturas/dashboard-1.png" alt="Vista principal del Beauty Sales Dashboard: métricas de ingresos y tabla de últimos pedidos">
+ <img class="segunda" src="demos/dashboard-ventas/capturas/dashboard-2.png" alt="Gráficas del dashboard: ventas por producto y por ciudad">
+ </div>
+ </a>
+ <div class="app-info">
+ <span class="app-tag">Datos en tiempo real</span>
+ <h3> Beauty Sales Dashboard</h3>
+ <p>Panel de control que monitoriza en directo las ventas de una tienda de cosmética: ingresos, pedidos y gráficas por producto y ciudad, refrescándose solo cada 60 segundos sobre <strong>PostgreSQL</strong>, con un simulador de ventas incluido. Pasa el ratón por la captura para ver las gráficas.</p>
+ <div class="tecnologias">
+ <span>Python</span><span>Streamlit</span><span>PostgreSQL</span><span>Plotly</span><span>Pandas</span><span>SQLAlchemy</span>
+ </div>
+ <div class="app-botones">
+ <a class="btn-demo" href="demos/dashboard-ventas/index.html" target="_blank" rel="noopener">Ver proyecto y código </a>
+ <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/Dashboard_live_sales" target="_blank" rel="noopener">GitHub</a>
+ </div>
+ </div>
+ </div>
+ </div>
 </section>
 
 <section id="demos">
-  <div class="reveal">
-    <span class="etiqueta">En vivo</span>
-    <h2>Mis proyectos, en acción <span class="deco">✦</span></h2>
-    <p class="intro-seccion">No te lo cuento, te lo enseño: cuatro experimentos visuales programados por mí que puedes abrir y tocar.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">En vivo</span>
+ <h2>Mis proyectos, en acción <span class="deco">✦</span></h2>
+ <p class="intro-seccion">No te lo cuento, te lo enseño: cuatro experimentos visuales programados por mí que puedes abrir y tocar.</p>
+ </div>
 
-  <div class="grid-demos">
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">galaxia-interactiva · Three.js</span>
-      </div>
-      <a class="captura" href="demos/galaxia/index.html" target="_blank" rel="noopener">
-        <img src="assets/galaxia.jpg" alt="Captura de la galaxia 3D interactiva: disco espiral de partículas violetas y rosas">
-        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
-      </a>
-      <div class="cuerpo">
-        <h3>🌌 Galaxia Interactiva 3D</h3>
-        <p>Galaxia espiral generada en tiempo real con <strong>miles de partículas</strong>: disco, brazos y halo calculados de forma procedural. Arrastra para rotar la cámara y explora la escena con total libertad.</p>
-        <div class="tecnologias">
-          <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Renderizado 3D</span>
-        </div>
-        <a class="btn-demo" href="demos/galaxia/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
-      </div>
-    </div>
+ <div class="grid-demos">
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">galaxia-interactiva · Three.js</span>
+ </div>
+ <a class="captura" href="demos/galaxia/index.html" target="_blank" rel="noopener">
+ <img src="assets/galaxia.jpg" alt="Captura de la galaxia 3D interactiva: disco espiral de partículas violetas y rosas">
+ <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+ </a>
+ <div class="cuerpo">
+ <h3> Galaxia Interactiva 3D</h3>
+ <p>Galaxia espiral generada en tiempo real con <strong>miles de partículas</strong>: disco, brazos y halo calculados de forma procedural. Arrastra para rotar la cámara y explora la escena con total libertad.</p>
+ <div class="tecnologias">
+ <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Renderizado 3D</span>
+ </div>
+ <a class="btn-demo" href="demos/galaxia/index.html" target="_blank" rel="noopener">Ver demo </a>
+ </div>
+ </div>
 
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">galaxia-espiral · Three.js</span>
-      </div>
-      <a class="captura" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">
-        <img src="assets/galaxia-espiral.jpg" alt="Captura de la galaxia espiral animada: brazos de partículas naranjas y azules girando sobre fondo negro">
-        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
-      </a>
-      <div class="cuerpo">
-        <h3>🌠 Galaxia Espiral Animada</h3>
-        <p>Galaxia espiral de <strong>100.000 partículas</strong> generada de forma procedural: tres brazos, degradado de color del núcleo al borde y una cámara que orbita sola alrededor de la escena. Arrastra para explorarla a tu ritmo.</p>
-        <div class="tecnologias">
-          <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Generación procedural</span>
-        </div>
-        <a class="btn-demo" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
-      </div>
-    </div>
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">galaxia-espiral · Three.js</span>
+ </div>
+ <a class="captura" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">
+ <img src="assets/galaxia-espiral.jpg" alt="Captura de la galaxia espiral animada: brazos de partículas naranjas y azules girando sobre fondo negro">
+ <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+ </a>
+ <div class="cuerpo">
+ <h3> Galaxia Espiral Animada</h3>
+ <p>Galaxia espiral de <strong>100.000 partículas</strong> generada de forma procedural: tres brazos, degradado de color del núcleo al borde y una cámara que orbita sola alrededor de la escena. Arrastra para explorarla a tu ritmo.</p>
+ <div class="tecnologias">
+ <span>Three.js</span><span>WebGL</span><span>JavaScript</span><span>Generación procedural</span>
+ </div>
+ <a class="btn-demo" href="demos/galaxia-espiral/index.html" target="_blank" rel="noopener">Ver demo </a>
+ </div>
+ </div>
 
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">agujero-negro · Three.js + Bloom</span>
-      </div>
-      <a class="captura" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">
-        <img src="assets/agujero-negro.jpg" alt="Captura de la simulación de agujero negro: disco de acreción brillante naranja y rojo sobre fondo estrellado">
-        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
-      </a>
-      <div class="cuerpo">
-        <h3>🕳️ Agujero Negro Galáctico</h3>
-        <p>Simulación de un agujero negro con su <strong>disco de acreción</strong> incandescente, post-procesado con efecto bloom, ondas de energía al hacer clic («Eco del disco») y cuatro temas de color: Inferno, Rubí, Plasma y Vacío.</p>
-        <div class="tecnologias">
-          <span>Three.js</span><span>WebGL</span><span>Post-procesado (Bloom)</span><span>Shaders</span>
-        </div>
-        <a class="btn-demo" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
-      </div>
-    </div>
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">agujero-negro · Three.js + Bloom</span>
+ </div>
+ <a class="captura" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">
+ <img src="assets/agujero-negro.jpg" alt="Captura de la simulación de agujero negro: disco de acreción brillante naranja y rojo sobre fondo estrellado">
+ <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+ </a>
+ <div class="cuerpo">
+ <h3>️ Agujero Negro Galáctico</h3>
+ <p>Simulación de un agujero negro con su <strong>disco de acreción</strong> incandescente, post-procesado con efecto bloom, ondas de energía al hacer clic («Eco del disco») y cuatro temas de color: Inferno, Rubí, Plasma y Vacío.</p>
+ <div class="tecnologias">
+ <span>Three.js</span><span>WebGL</span><span>Post-procesado (Bloom)</span><span>Shaders</span>
+ </div>
+ <a class="btn-demo" href="demos/agujero-negro/index.html" target="_blank" rel="noopener">Ver demo </a>
+ </div>
+ </div>
 
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">red-neuronal-cuantica · 3D</span>
-      </div>
-      <a class="captura" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">
-        <img src="assets/red-neuronal.jpg" alt="Captura de la red neuronal cuántica 3D: nodos brillantes rosas conectados sobre fondo oscuro">
-        <div class="velo"><span>▶ Abrir demo interactiva</span></div>
-      </a>
-      <div class="cuerpo">
-        <h3>🧠 Red Neuronal Cuántica 3D</h3>
-        <p>Visualización 3D de una red neuronal: haz clic para enviar <strong>pulsos de energía</strong> entre los nodos, arrastra para explorar la estructura y juega con los temas de color y la densidad de la red.</p>
-        <div class="tecnologias">
-          <span>JavaScript</span><span>Canvas / WebGL</span><span>Animación 3D</span><span>UI Glassmorphism</span>
-        </div>
-        <a class="btn-demo" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">Ver demo ✨</a>
-      </div>
-    </div>
-  </div>
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">red-neuronal-cuantica · 3D</span>
+ </div>
+ <a class="captura" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">
+ <img src="assets/red-neuronal.jpg" alt="Captura de la red neuronal cuántica 3D: nodos brillantes rosas conectados sobre fondo oscuro">
+ <div class="velo"><span>▶ Abrir demo interactiva</span></div>
+ </a>
+ <div class="cuerpo">
+ <h3> Red Neuronal Cuántica 3D</h3>
+ <p>Visualización 3D de una red neuronal: haz clic para enviar <strong>pulsos de energía</strong> entre los nodos, arrastra para explorar la estructura y juega con los temas de color y la densidad de la red.</p>
+ <div class="tecnologias">
+ <span>JavaScript</span><span>Canvas / WebGL</span><span>Animación 3D</span><span>UI Glassmorphism</span>
+ </div>
+ <a class="btn-demo" href="demos/red-neuronal/index.html" target="_blank" rel="noopener">Ver demo </a>
+ </div>
+ </div>
+ </div>
 
-  <p class="nota-demos reveal">💡 Las demos se abren en una pestaña nueva y funcionan directamente en el navegador — sin instalar nada.</p>
+ <p class="nota-demos reveal">Las demos se abren en una pestaña nueva y funcionan directamente en el navegador — sin instalar nada.</p>
 </section>
 
 <section id="ia">
-  <div class="reveal">
-    <span class="etiqueta">Inteligencia Artificial</span>
-    <h2>IA en movimiento <span class="deco">🤖</span></h2>
-    <p class="intro-seccion">Mi Máster en IA no se quedó en la teoría: aquí puedes ver mis modelos trabajando sobre vídeo real y un asistente RAG que puedes usar ahora mismo.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Inteligencia Artificial</span>
+ <h2>IA en movimiento <span class="deco"></span></h2>
+ <p class="intro-seccion">Mi Máster en IA no se quedó en la teoría: aquí puedes ver mis modelos trabajando sobre vídeo real y un asistente RAG que puedes usar ahora mismo.</p>
+ </div>
 
-  <div class="grid-demos">
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">asistente-teledeteccion-agricola.streamlit.app · Gemini + RAG</span>
-      </div>
-      <a class="captura" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener" aria-label="Abrir el asistente experto en teledetección agrícola">
-        <img src="assets/asistente-rag.jpg" alt="Captura del asistente RAG respondiendo, con citas, qué índice de vegetación detecta el daño del saltahojas marrón en arroz">
-        <div class="velo"><span>Abrir la app ✨</span></div>
-      </a>
-      <div class="cuerpo">
-        <h3>🌾 Asistente experto en teledetección agrícola</h3>
-        <p>Agente <strong>RAG con memoria</strong> sobre cinco artículos científicos: embeddings de Gemini en <strong>ChromaDB</strong>, grafo en <strong>LangGraph</strong> que reescribe la pregunta con el historial, recupera los fragmentos y responde citando documento y página. Si los artículos no contienen la respuesta, lo dice en vez de inventar.</p>
-        <div class="tecnologias">
-          <span>Python</span><span>Gemini</span><span>LangGraph</span><span>LangChain</span><span>ChromaDB</span><span>Streamlit</span>
-        </div>
-        <div class="acciones">
-          <a class="btn-demo" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener">Probar el asistente ✨</a>
-          <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/proyecto-final-genai" target="_blank" rel="noopener">🐙 GitHub</a>
-        </div>
-      </div>
-    </div>
+ <div class="grid-demos">
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">asistente-teledeteccion-agricola.streamlit.app · Gemini + RAG</span>
+ </div>
+ <a class="captura" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener" aria-label="Abrir el asistente experto en teledetección agrícola">
+ <img src="assets/asistente-rag.jpg" alt="Captura del asistente RAG respondiendo, con citas, qué índice de vegetación detecta el daño del saltahojas marrón en arroz">
+ <div class="velo"><span>Abrir la app </span></div>
+ </a>
+ <div class="cuerpo">
+ <h3> Asistente experto en teledetección agrícola</h3>
+ <p>Agente <strong>RAG con memoria</strong> sobre cinco artículos científicos: embeddings de Gemini en <strong>ChromaDB</strong>, grafo en <strong>LangGraph</strong> que reescribe la pregunta con el historial, recupera los fragmentos y responde citando documento y página. Si los artículos no contienen la respuesta, lo dice en vez de inventar.</p>
+ <div class="tecnologias">
+ <span>Python</span><span>Gemini</span><span>LangGraph</span><span>LangChain</span><span>ChromaDB</span><span>Streamlit</span>
+ </div>
+ <div class="acciones">
+ <a class="btn-demo" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener">Probar el asistente </a>
+ <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/proyecto-final-genai" target="_blank" rel="noopener">GitHub</a>
+ </div>
+ </div>
+ </div>
 
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">deteccion-objetos · Computer Vision</span>
-      </div>
-      <div class="captura">
-        <video controls preload="metadata" playsinline poster="assets/deteccion-objetos-poster.jpg">
-          <source src="assets/deteccion-objetos.mp4" type="video/mp4">
-          Tu navegador no puede reproducir este vídeo.
-        </video>
-      </div>
-      <div class="cuerpo">
-        <h3>🎯 Detección de objetos en vídeo</h3>
-        <p>Sistema de <strong>visión por computador</strong> que detecta, clasifica y sigue objetos en vídeo, dibujando en tiempo real las cajas delimitadoras y las etiquetas de cada elemento reconocido.</p>
-        <div class="tecnologias">
-          <span>Python</span><span>Deep Learning</span><span>Visión por Computador</span><span>Detección en tiempo real</span>
-        </div>
-      </div>
-    </div>
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">deteccion-objetos · Computer Vision</span>
+ </div>
+ <div class="captura">
+ <video controls preload="metadata" playsinline poster="assets/deteccion-objetos-poster.jpg">
+ <source src="assets/deteccion-objetos.mp4" type="video/mp4">Tu navegador no puede reproducir este vídeo.
+ </video>
+ </div>
+ <div class="cuerpo">
+ <h3> Detección de objetos en vídeo</h3>
+ <p>Sistema de <strong>visión por computador</strong> que detecta, clasifica y sigue objetos en vídeo, dibujando en tiempo real las cajas delimitadoras y las etiquetas de cada elemento reconocido.</p>
+ <div class="tecnologias">
+ <span>Python</span><span>Deep Learning</span><span>Visión por Computador</span><span>Detección en tiempo real</span>
+ </div>
+ </div>
+ </div>
 
-    <div class="demo reveal">
-      <div class="barra-nav">
-        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
-        <span class="url-falsa">hand-mouse · Python + MediaPipe</span>
-      </div>
-      <div class="captura">
-        <video controls preload="metadata" playsinline poster="assets/hand-mouse-poster.jpg">
-          <source src="assets/hand-mouse.mp4" type="video/mp4">
-          Tu navegador no puede reproducir este vídeo.
-        </video>
-      </div>
-      <div class="cuerpo">
-        <h3>🖐️ Hand Mouse · controla el PC con la mano</h3>
-        <p>Control completo del ordenador <strong>sin tocar el ratón</strong>: la webcam detecta la mano y los gestos mueven el cursor, hacen clic, arrastran y hacen scroll. Con máquina de estados, clics con histéresis, suavizado del cursor y movimiento relativo, como al levantar un ratón real de la alfombrilla.</p>
-        <div class="tecnologias">
-          <span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>PyAutoGUI</span><span>Visión por Computador</span>
-        </div>
-        <a class="btn-demo" href="demos/hand-mouse/index.html" target="_blank" rel="noopener">Ver gestos y código ✨</a>
-      </div>
-    </div>
-  </div>
+ <div class="demo reveal">
+ <div class="barra-nav">
+ <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+ <span class="url-falsa">hand-mouse · Python + MediaPipe</span>
+ </div>
+ <div class="captura">
+ <video controls preload="metadata" playsinline poster="assets/hand-mouse-poster.jpg">
+ <source src="assets/hand-mouse.mp4" type="video/mp4">Tu navegador no puede reproducir este vídeo.
+ </video>
+ </div>
+ <div class="cuerpo">
+ <h3>️ Hand Mouse · controla el PC con la mano</h3>
+ <p>Control completo del ordenador <strong>sin tocar el ratón</strong>: la webcam detecta la mano y los gestos mueven el cursor, hacen clic, arrastran y hacen scroll. Con máquina de estados, clics con histéresis, suavizado del cursor y movimiento relativo, como al levantar un ratón real de la alfombrilla.</p>
+ <div class="tecnologias">
+ <span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>PyAutoGUI</span><span>Visión por Computador</span>
+ </div>
+ <a class="btn-demo" href="demos/hand-mouse/index.html" target="_blank" rel="noopener">Ver gestos y código </a>
+ </div>
+ </div>
+ </div>
 </section>
 
 <section id="habilidades">
-  <div class="reveal">
-    <span class="etiqueta">Stack</span>
-    <h2>Habilidades técnicas <span class="deco">✿</span></h2>
-    <p class="intro-seccion">Lo que uso cada día para convertir ideas en producto.</p>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Stack</span>
+ <h2>Habilidades técnicas <span class="deco">✿</span></h2>
+ <p class="intro-seccion">Lo que uso cada día para convertir ideas en producto.</p>
+ </div>
 
-  <div class="grid-skills">
-    <div class="caja-skill reveal">
-      <h3><span class="ic">📱</span>Desarrollo móvil</h3>
-      <div class="barras">
-        <div class="barra-item"><div class="fila"><span>Flutter / Dart</span><span>Avanzado</span></div><div class="barra"><i data-w="92"></i></div></div>
-        <div class="barra-item"><div class="fila"><span>Criptografía móvil</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="75"></i></div></div>
-        <div class="barra-item"><div class="fila"><span>Firebase / notificaciones push</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="78"></i></div></div>
-      </div>
-    </div>
-    <div class="caja-skill reveal">
-      <h3><span class="ic">💻</span>Desarrollo web</h3>
-      <div class="barras">
-        <div class="barra-item"><div class="fila"><span>PHP / Laravel</span><span>Avanzado</span></div><div class="barra"><i data-w="88"></i></div></div>
-        <div class="barra-item"><div class="fila"><span>Vue.js / Nuxt.js</span><span>Avanzado</span></div><div class="barra"><i data-w="85"></i></div></div>
-        <div class="barra-item"><div class="fila"><span>JavaScript / HTML5 / CSS3</span><span>Avanzado</span></div><div class="barra"><i data-w="86"></i></div></div>
-      </div>
-    </div>
-    <div class="caja-skill reveal">
-      <h3><span class="ic">🗄️</span>Backend &amp; datos</h3>
-      <div class="chips">
-        <span class="chip">APIs RESTful</span><span class="chip">MySQL</span><span class="chip">SQLite</span>
-        <span class="chip">Pasarelas de pago</span><span class="chip">Autenticación &amp; JWT</span><span class="chip">WebSockets / tiempo real</span>
-      </div>
-    </div>
-    <div class="caja-skill reveal">
-      <h3><span class="ic">🤖</span>IA &amp; computación</h3>
-      <div class="chips">
-        <span class="chip rosa">Python</span><span class="chip rosa">Machine Learning</span><span class="chip rosa">NLP</span>
-        <span class="chip rosa">Procesamiento de señales (EEG)</span><span class="chip rosa">Computación de Altas Prestaciones</span><span class="chip rosa">C/C++</span>
-      </div>
-    </div>
-    <div class="caja-skill reveal">
-      <h3><span class="ic">🛠️</span>Herramientas &amp; DevOps</h3>
-      <div class="chips">
-        <span class="chip">Git / GitHub</span><span class="chip">Docker</span><span class="chip">Postman</span>
-        <span class="chip">Linux</span><span class="chip">CI/CD</span><span class="chip">LaTeX</span><span class="chip">Arduino</span>
-      </div>
-    </div>
-    <div class="caja-skill reveal">
-      <h3><span class="ic">🧭</span>Metodologías</h3>
-      <div class="chips">
-        <span class="chip rosa">Scrum / Agile</span><span class="chip rosa">Trabajo remoto internacional</span>
-        <span class="chip rosa">Code review</span><span class="chip rosa">Diseño UI/UX</span><span class="chip rosa">Testing</span>
-      </div>
-    </div>
-  </div>
+ <div class="grid-skills">
+ <div class="caja-skill reveal">
+ <h3>Desarrollo móvil</h3>
+ <div class="barras">
+ <div class="barra-item"><div class="fila"><span>Flutter / Dart</span><span>Avanzado</span></div><div class="barra"><i data-w="92"></i></div></div>
+ <div class="barra-item"><div class="fila"><span>Criptografía móvil</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="75"></i></div></div>
+ <div class="barra-item"><div class="fila"><span>Firebase / notificaciones push</span><span>Intermedio-alto</span></div><div class="barra"><i data-w="78"></i></div></div>
+ </div>
+ </div>
+ <div class="caja-skill reveal">
+ <h3>Desarrollo web</h3>
+ <div class="barras">
+ <div class="barra-item"><div class="fila"><span>PHP / Laravel</span><span>Avanzado</span></div><div class="barra"><i data-w="88"></i></div></div>
+ <div class="barra-item"><div class="fila"><span>Vue.js / Nuxt.js</span><span>Avanzado</span></div><div class="barra"><i data-w="85"></i></div></div>
+ <div class="barra-item"><div class="fila"><span>JavaScript / HTML5 / CSS3</span><span>Avanzado</span></div><div class="barra"><i data-w="86"></i></div></div>
+ </div>
+ </div>
+ <div class="caja-skill reveal">
+ <h3>Backend &amp; datos</h3>
+ <div class="chips">
+ <span class="chip">APIs RESTful</span><span class="chip">MySQL</span><span class="chip">SQLite</span>
+ <span class="chip">Pasarelas de pago</span><span class="chip">Autenticación &amp; JWT</span><span class="chip">WebSockets / tiempo real</span>
+ </div>
+ </div>
+ <div class="caja-skill reveal">
+ <h3>IA &amp; computación</h3>
+ <div class="chips">
+ <span class="chip rosa">Python</span><span class="chip rosa">Machine Learning</span><span class="chip rosa">NLP</span>
+ <span class="chip rosa">Procesamiento de señales (EEG)</span><span class="chip rosa">Computación de Altas Prestaciones</span><span class="chip rosa">C/C++</span>
+ </div>
+ </div>
+ <div class="caja-skill reveal">
+ <h3>Herramientas &amp; DevOps</h3>
+ <div class="chips">
+ <span class="chip">Git / GitHub</span><span class="chip">Docker</span><span class="chip">Postman</span>
+ <span class="chip">Linux</span><span class="chip">CI/CD</span><span class="chip">LaTeX</span><span class="chip">Arduino</span>
+ </div>
+ </div>
+ <div class="caja-skill reveal">
+ <h3>Metodologías</h3>
+ <div class="chips">
+ <span class="chip rosa">Scrum / Agile</span><span class="chip rosa">Trabajo remoto internacional</span>
+ <span class="chip rosa">Code review</span><span class="chip rosa">Diseño UI/UX</span><span class="chip rosa">Testing</span>
+ </div>
+ </div>
+ </div>
 
-  <div class="soft-skills reveal">
-    <h3>Y lo que no se ve en el código ♡</h3>
-    <div class="soft-chips">
-      <span class="soft">🤝 Trabajo en equipo</span>
-      <span class="soft">🗣️ Comunicación clara</span>
-      <span class="soft">🌍 Adaptabilidad multicultural</span>
-      <span class="soft">🧩 Resolución de problemas</span>
-      <span class="soft">📚 Aprendizaje continuo</span>
-      <span class="soft">⏰ Autonomía y organización</span>
-    </div>
-  </div>
+ <div class="soft-skills reveal">
+ <h3>Y lo que no se ve en el código </h3>
+ <div class="soft-chips">
+ <span class="soft">Trabajo en equipo</span>
+ <span class="soft">️ Comunicación clara</span>
+ <span class="soft">Adaptabilidad multicultural</span>
+ <span class="soft">Resolución de problemas</span>
+ <span class="soft">Aprendizaje continuo</span>
+ <span class="soft">⏰ Autonomía y organización</span>
+ </div>
+ </div>
 </section>
 
 <section id="premios">
-  <div class="reveal">
-    <span class="etiqueta">Reconocimientos</span>
-    <h2>Premios y formación continua <span class="deco">✦</span></h2>
-  </div>
-  <div class="grid-premios">
-    <div class="premio reveal">
-      <span class="trofeo">🏅</span>
-      <div><h3>Mejor Artículo Científico</h3><p>SETIT 2022 · Sistemas Embebidos</p></div>
-    </div>
-    <div class="premio reveal">
-      <span class="trofeo">🥉</span>
-      <div><h3>3er Premio Internacional</h3><p>Future Scientists Competition · Jordania, 2022</p></div>
-    </div>
-    <div class="premio reveal">
-      <span class="trofeo">🎓</span>
-      <div><h3>Workshops especializados</h3><p>NLP con Python (2024) · Esteganografía móvil (2023)</p></div>
-    </div>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Reconocimientos</span>
+ <h2>Premios y formación continua <span class="deco">✦</span></h2>
+ </div>
+ <div class="grid-premios">
+ <div class="premio reveal">
+ <div><h3>Mejor Artículo Científico</h3><p>SETIT 2022 · Sistemas Embebidos</p></div>
+ </div>
+ <div class="premio reveal">
+ <div><h3>3er Premio Internacional</h3><p>Future Scientists Competition · Jordania, 2022</p></div>
+ </div>
+ <div class="premio reveal">
+ <div><h3>Workshops especializados</h3><p>NLP con Python (2024) · Esteganografía móvil (2023)</p></div>
+ </div>
+ </div>
 </section>
 
 <section id="educacion">
-  <div class="reveal">
-    <span class="etiqueta">Formación</span>
-    <h2>Educación <span class="deco">✧</span></h2>
-  </div>
-  <div class="grid-edu">
-    <div class="edu reveal">
-      <span class="anio">2025 — 2026</span>
-      <h3>Máster en Computación de Altas Prestaciones</h3>
-      <p>Universidade de Santiago de Compostela, España</p>
-    </div>
-    <div class="edu reveal">
-      <span class="anio">480 h · Online</span>
-      <h3>Máster en Data Science &amp; Desarrollo de IA</h3>
-      <p>Evolve, Madrid (100 % online en directo)</p>
-    </div>
-    <div class="edu reveal">
-      <span class="anio">2021 — 2023</span>
-      <h3>Máster en Inteligencia Artificial y Toma de Decisiones</h3>
-      <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
-    </div>
-    <div class="edu reveal">
-      <span class="anio">2018 — 2021</span>
-      <h3>Licenciatura en Sistemas Informáticos</h3>
-      <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
-    </div>
-  </div>
+ <div class="reveal">
+ <span class="etiqueta">Formación</span>
+ <h2>Educación <span class="deco">✧</span></h2>
+ </div>
+ <div class="grid-edu">
+ <div class="edu reveal">
+ <span class="anio">2025 — 2026</span>
+ <h3>Máster en Computación de Altas Prestaciones</h3>
+ <p>Universidade de Santiago de Compostela, España</p>
+ </div>
+ <div class="edu reveal">
+ <span class="anio">480 h · Online</span>
+ <h3>Máster en Data Science &amp; Desarrollo de IA</h3>
+ <p>Evolve, Madrid (100 % online en directo)</p>
+ </div>
+ <div class="edu reveal">
+ <span class="anio">2021 — 2023</span>
+ <h3>Máster en Inteligencia Artificial y Toma de Decisiones</h3>
+ <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
+ </div>
+ <div class="edu reveal">
+ <span class="anio">2018 — 2021</span>
+ <h3>Licenciatura en Sistemas Informáticos</h3>
+ <p>Universidad Tahri Mohamed, Bechar, Argelia</p>
+ </div>
+ </div>
 </section>
 
 <section id="idiomas">
-  <div class="reveal" style="text-align:center">
-    <span class="etiqueta">Idiomas</span>
-    <h2>Hablo tu idioma <span class="deco">✿</span></h2>
-    <p class="intro-seccion" style="margin-left:auto;margin-right:auto">Cuatro idiomas para trabajar con equipos de cualquier parte del mundo.</p>
-  </div>
-  <div class="idiomas">
-    <div class="idioma reveal"><div class="bandera">🇪🇸</div><h3>Español</h3><span class="nivel">B2</span></div>
-    <div class="idioma reveal"><div class="bandera">🇫🇷</div><h3>Francés</h3><span class="nivel">C1</span></div>
-    <div class="idioma reveal"><div class="bandera">🇬🇧</div><h3>Inglés</h3><span class="nivel">B2</span></div>
-    <div class="idioma reveal"><div class="bandera">🇩🇿</div><h3>Árabe</h3><span class="nivel">Nativo</span></div>
-  </div>
+ <div class="reveal" style="text-align:center">
+ <span class="etiqueta">Idiomas</span>
+ <h2>Hablo tu idioma <span class="deco">✿</span></h2>
+ <p class="intro-seccion" style="margin-left:auto;margin-right:auto">Cuatro idiomas para trabajar con equipos de cualquier parte del mundo.</p>
+ </div>
+ <div class="idiomas">
+ <div class="idioma reveal"><div class="bandera code">ES</div><h3>Español</h3><span class="nivel">B2</span></div>
+ <div class="idioma reveal"><div class="bandera code">FR</div><h3>Francés</h3><span class="nivel">C1</span></div>
+ <div class="idioma reveal"><div class="bandera code">EN</div><h3>Inglés</h3><span class="nivel">B2</span></div>
+ <div class="idioma reveal"><div class="bandera code">AR</div><h3>Árabe</h3><span class="nivel">Nativo</span></div>
+ </div>
 </section>
 
 <section id="contacto">
-  <div class="contacto reveal">
-    <h2>¿Construimos algo juntos? 💌</h2>
-    <p>Busco un nuevo reto profesional en España. Si crees que encajo en tu proyecto, me encantará conocerte.</p>
-    <div class="contacto-links">
-      <a href="mailto:aichouneaya@gmail.com">✉️ aichouneaya@gmail.com</a>
-      <a href="tel:+34602030506">📞 +34 602 030 506</a>
-      <a href="https://www.linkedin.com/in/aya-hibat-allah-aichoune/" target="_blank" rel="noopener">💼 LinkedIn</a>
-      <a href="https://github.com/Aya-Hibat-Allah-Aichoune" target="_blank" rel="noopener">🐙 GitHub</a>
-    </div>
-  </div>
+ <div class="contacto reveal">
+ <h2>¿Construimos algo juntos? </h2>
+ <p>Busco un nuevo reto profesional en España. Si crees que encajo en tu proyecto, me encantará conocerte.</p>
+ <div class="contacto-links">
+ <a href="mailto:aichouneaya@gmail.com">aichouneaya@gmail.com</a>
+ <a href="tel:+34602030506"> +34 602 030 506</a>
+ <a href="https://www.linkedin.com/in/aya-hibat-allah-aichoune/" target="_blank" rel="noopener">LinkedIn</a>
+ <a href="https://github.com/Aya-Hibat-Allah-Aichoune" target="_blank" rel="noopener">GitHub</a>
+ </div>
+ </div>
 </section>
 
 <footer>
-  Hecho con <span class="corazon">♥</span> por Aya Hibat Allah Aichoune · Santiago de Compostela, 2026
+  Hecho con <span class="corazon"></span> por Aya Hibat Allah Aichoune · Santiago de Compostela, 2026
 </footer>
 
 <script>
   const frases = [
-    'Especialista en Flutter 📱',
-    'Full Stack: Laravel + Vue.js 💻',
-    'Apasionada de la IA 🤖',
-    'Lista para un nuevo reto en España ✨'
+    'Especialista en Flutter ',
+    'Full Stack: Laravel + Vue.js ',
+    'Apasionada de la IA ',
+    'Lista para un nuevo reto en España '
   ];
   const el = document.getElementById('typing');
   let fi = 0, ci = 0, borrando = false;
@@ -1053,13 +1059,13 @@
   navToggle.addEventListener('click', () => {
     const abierto = navMenu.classList.toggle('abierto');
     navToggle.setAttribute('aria-expanded', abierto);
-    navToggle.textContent = abierto ? '✕' : '☰';
+    navToggle.textContent = abierto ? '✕' : '';
     navToggle.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
   });
   navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     navMenu.classList.remove('abierto');
     navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.textContent = '☰';
+    navToggle.textContent = '';
     navToggle.setAttribute('aria-label', 'Abrir menú');
   }));
 </script>
