@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AyaBot · Asistente IA del portfolio — Aya Aichoune</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--rosa:#e85d8a;--lila:#8b5fbf;--tinta:#3a2e39;--suave:#6f5f6e}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Nunito,system-ui;background:linear-gradient(160deg,#fceef3,#f3edfa);color:var(--tinta);min-height:100vh}
+header{padding:26px 5vw;text-align:center}h1{font-family:'Playfair Display',serif;font-size:2.1rem}h1 em{color:var(--rosa)}a{color:var(--suave);font-weight:800;text-decoration:none}
+.chat{max-width:720px;margin:0 auto 40px;background:#fff;border-radius:24px;box-shadow:0 20px 50px rgba(139,95,191,.18);overflow:hidden}
+.head{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;padding:18px 22px;font-weight:900}
+#msgs{padding:20px;height:420px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:82%;padding:12px 16px;border-radius:18px;font-size:.95rem;line-height:1.5}.bot{background:#f3edfa;align-self:flex-start;border-bottom-left-radius:4px}.user{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 12px}.chip{border:2px solid #f7d4e0;background:#fff;padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer;font-size:.83rem}.chip:hover{border-color:var(--rosa);color:var(--rosa)}
+form{display:flex;gap:10px;padding:16px;border-top:1px solid #fceef3}input{flex:1;padding:12px 15px;border:2px solid #f7d4e0;border-radius:999px;font-family:Nunito;font-weight:700}button.send{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;border:none;padding:12px 22px;border-radius:999px;font-weight:900;cursor:pointer}
+.typing{opacity:.6;font-style:italic}
+</style></head><body>
+<header><a href="../../index.html">← Volver al portfolio</a><h1>🤖 Aya<em>Bot</em></h1><p style="color:var(--suave);font-weight:700">Pregúntame por Aya: experiencia, tecnologías, idiomas, disponibilidad… ¡como una entrevista en directo!</p></header>
+<div class="chat"><div class="head">🤖 AyaBot · Asistente del portfolio <span style="float:right;font-size:.8rem;opacity:.9">● En línea</span></div>
+<div id="msgs"></div>
+<div class="chips" id="chips"></div>
+<form onsubmit="send(event)"><input id="inp" placeholder="Escribe tu pregunta... ej: ¿sabes Flutter?"><button class="send">Enviar ➤</button></form></div>
+<script>
+const QA=[
+{k:['flutter','móvil','movil','dart','app'],a:'📱 ¡Sí! Flutter/Dart es mi especialidad (nivel avanzado). He creado apps reales en producción: Eduworky (educativa, Francia) y Brokerspot (inmobiliaria, Emiratos), reduciendo tiempos de carga un 20%.'},
+{k:['laravel','vue','php','full stack','fullstack','web','backend'],a:'💻 Domino Laravel + Vue.js/Nuxt (avanzado). Actualmente hago prácticas Full Stack en InvBit (Santiago) con Laravel, Vue, APIs REST, JWT y bases de datos MySQL/PostgreSQL.'},
+{k:['experiencia','años','trabaj'],a:'🧳 Tengo +3 años de experiencia con equipos remotos internacionales (Emiratos, Francia y España): Brokerspot, Eduworky y ahora InvBit.'},
+{k:['ia','inteligencia artificial','machine learning','python','eeg'],a:'🤖 Tengo un Máster en IA. Creé un predictor de crisis epilépticas con señales EEG en Python, Hand Mouse con MediaPipe/OpenCV y detección de objetos en vídeo. ¡Mira la sección "IA en movimiento" del portfolio!'},
+{k:['idioma','inglés','ingles','francés','frances','español'],a:'🌍 Hablo 4 idiomas: árabe nativo, francés C1, español B2 e inglés B2. Perfecta para equipos internacionales.'},
+{k:['estudio','máster','master','formación','universidad'],a:'🎓 Tengo 3 másteres: IA y Toma de Decisiones, Data Science & IA (Evolve, Madrid) y ahora Computación de Altas Prestaciones en la USC (Santiago).'},
+{k:['disponib','contrat','busca','empleo','trabajo','incorpor'],a:'✅ ¡Aya está abierta a nuevas oportunidades en España! Busca un equipo donde aportar desde el primer día. ¿Hablamos? 👉 aichouneaya@gmail.com · +34 602 030 506'},
+{k:['contact','email','correo','teléfono','telefono','linkedin'],a:'💌 Puedes contactar con Aya en aichouneaya@gmail.com, +34 602 030 506, LinkedIn: aya-hibat-allah-aichoune y GitHub: Aya-Hibat-Allah-Aichoune.'},
+{k:['premio','reconocimiento','galard'],a:'🏆 Ha ganado el premio a Mejor Artículo Científico (SETIT 2022), 3er Premio Internacional Future Scientists (Jordania) y premios nacionales por Zero Paper One y el Bolígrafo Inteligente.'},
+{k:['proyecto','portfolio','demo'],a:'🚀 Mis proyectos estrella: TaskFlow (Kanban), Luna Shop (e-commerce), MisFinanzas, Beauty Sales Dashboard (Python/PostgreSQL), Hand Mouse e IA con EEG. ¡Todos con demo en vivo en este portfolio!'},
+{k:['hola','buenas','hey'],a:'👋 ¡Hola! Encantada. Pregúntame por la experiencia, tecnologías, idiomas o disponibilidad de Aya.'},
+{k:['gracias'],a:'💖 ¡Gracias a ti por tu interés! Si quieres, escribe a Aya: aichouneaya@gmail.com'}];
+const CHIPS=['¿Sabes Flutter?','¿Experiencia laboral?','¿Qué sabes de IA?','¿Estás disponible?','¿Qué idiomas hablas?','¿Cómo contacto con Aya?'];
+msgs.innerHTML='<div class="msg bot">👋 ¡Hola! Soy <b>AyaBot</b>, el asistente de este portfolio. Pregúntame lo que le preguntarías a Aya en una entrevista 👇</div>';
+chips.innerHTML=CHIPS.map(c=>`<button class="chip" onclick="ask('${c}')">${c}</button>`).join('');
+function answer(q){q=q.toLowerCase();for(let x of QA)if(x.k.some(k=>q.includes(k)))return x.a;return '🤔 Buena pregunta. Puedo hablarte de: Flutter, Laravel/Vue, IA/Python, experiencia, idiomas, estudios, premios o disponibilidad. Prueba con una de las preguntas rápidas 👇'}
+function bubble(t,cls){let d=document.createElement('div');d.className='msg '+cls;d.innerHTML=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
+function ask(q){bubble(q,'user');let t=bubble('AyaBot está escribiendo…','bot typing');setTimeout(()=>{t.remove();bubble(answer(q),'bot')},650)}
+function send(e){e.preventDefault();if(!inp.value.trim())return;ask(inp.value);inp.value=''}
+</script></body></html>

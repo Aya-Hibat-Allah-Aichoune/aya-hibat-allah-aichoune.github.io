@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MisFinanzas · Control de gastos — Aya Aichoune</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--rosa:#e85d8a;--lila:#8b5fbf;--verde:#3e9e7c;--tinta:#3a2e39;--suave:#6f5f6e}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Nunito,system-ui;background:#fffaf7;color:var(--tinta)}
+header{padding:28px 5vw;background:linear-gradient(140deg,#fceef3,#f3edfa)}h1{font-family:'Playfair Display',serif}h1 em{color:var(--rosa)}a{color:var(--suave);font-weight:800;text-decoration:none}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 5vw 50px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(232,93,138,.12)}.card b{font-size:1.6rem;font-family:'Playfair Display',serif}.card span{color:var(--suave);font-weight:700;font-size:.85rem;display:block}
+form{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0;background:#fff;padding:18px;border-radius:18px;box-shadow:0 10px 30px rgba(232,93,138,.1)}
+input,select{padding:11px 13px;border:2px solid #f7d4e0;border-radius:12px;font-family:Nunito;font-weight:700}
+button.btn{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;border:none;padding:11px 20px;border-radius:999px;font-weight:900;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:#fff;border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(232,93,138,.1)}canvas{width:100%;height:220px}
+.mov{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #fceef3;font-size:.92rem}.del{background:none;border:none;cursor:pointer}
+</style></head><body>
+<header><a href="../../index.html">← Portfolio</a><h1>💰 Mis<em>Finanzas</em></h1><p style="color:var(--suave);font-weight:700">Control de ingresos y gastos con gráficas — tus datos se guardan en tu navegador</p></header>
+<div class="wrap">
+<div class="cards"><div class="card"><span>💼 Balance total</span><b id="bal">0 €</b></div><div class="card"><span>⬆️ Ingresos</span><b style="color:var(--verde)" id="inc">0 €</b></div><div class="card"><span>⬇️ Gastos</span><b style="color:var(--rosa)" id="exp">0 €</b></div><div class="card"><span>🧾 Movimientos</span><b id="num">0</b></div></div>
+<form onsubmit="addMov(event)"><input id="desc" required placeholder="Concepto: Nómina, Alquiler..." style="flex:2;min-width:180px"><input id="amt" required type="number" step="0.01" min="0.01" placeholder="Cantidad €" style="width:140px"><select id="type"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select><select id="cat"><option>🏠 Hogar</option><option>🍽️ Comida</option><option>💼 Trabajo</option><option>🎓 Formación</option><option>🚗 Transporte</option><option>💄 Belleza</option><option>🎉 Ocio</option></select><button class="btn">+ Añadir</button></form>
+<div class="grid"><div class="panel"><h3 style="margin-bottom:12px">📊 Gastos por categoría</h3><canvas id="chart" width="400" height="220"></canvas><div id="legend" style="font-size:.85rem;font-weight:700;color:var(--suave)"></div></div>
+<div class="panel"><h3 style="margin-bottom:8px">🧾 Últimos movimientos</h3><div id="list"></div><button class="btn" style="margin-top:14px;background:#fff;color:var(--rosa);border:2px solid #f7d4e0" onclick="resetData()">↺ Restaurar ejemplos</button></div></div>
+</div>
+<script>
+let data=JSON.parse(localStorage.getItem('finanzas')||'null');
+function seed(){data=[{d:'Nómina práctica Full Stack',a:1200,t:'ingreso',c:'💼 Trabajo'},{d:'Alquiler Santiago',a:450,t:'gasto',c:'🏠 Hogar'},{d:'Supermercado',a:86.40,t:'gasto',c:'🍽️ Comida'},{d:'Curso Flutter avanzado',a:49,t:'gasto',c:'🎓 Formación'},{d:'Abono transporte',a:21.80,t:'gasto',c:'🚗 Transporte'},{d:'Proyecto freelance web',a:350,t:'ingreso',c:'💼 Trabajo'},{d:'Cosmética Luna Shop',a:38.70,t:'gasto',c:'💄 Belleza'}];save()}
+function save(){localStorage.setItem('finanzas',JSON.stringify(data))}
+function addMov(e){e.preventDefault();data.unshift({d:desc.value,a:+amt.value,t:type.value,c:cat.value});desc.value=amt.value='';save();render()}
+function del(i){data.splice(i,1);save();render()}
+function resetData(){seed();render()}
+function render(){let inc=data.filter(x=>x.t==='ingreso').reduce((a,x)=>a+x.a,0),exp=data.filter(x=>x.t==='gasto').reduce((a,x)=>a+x.a,0);
+bal.textContent=(inc-exp).toFixed(2)+' €';document.getElementById('inc').textContent=inc.toFixed(2)+' €';document.getElementById('exp').textContent=exp.toFixed(2)+' €';num.textContent=data.length;
+list.innerHTML=data.map((x,i)=>`<div class="mov"><span>${x.c} ${x.d}</span><span><b style="color:${x.t==='ingreso'?'#3e9e7c':'#e85d8a'}">${x.t==='ingreso'?'+':'−'}${x.a.toFixed(2)} €</b> <button class="del" onclick="del(${i})">🗑️</button></span></div>`).join('')||'<p>Sin movimientos</p>';draw(exp)}
+function draw(total){let cats={};data.filter(x=>x.t==='gasto').forEach(x=>cats[x.c]=(cats[x.c]||0)+x.a);let entries=Object.entries(cats).sort((a,b)=>b[1]-a[1]),colors=['#e85d8a','#8b5fbf','#e9b44c','#3e9e7c','#5aa9e6','#f38ba8'];let ctx=chart.getContext('2d');ctx.clearRect(0,0,400,220);let y=18;entries.forEach(([c,v],i)=>{let w=total? (v/total)*300:0;ctx.fillStyle=colors[i%6];ctx.beginPath();ctx.roundRect(10,y,w,22,8);ctx.fill();ctx.fillStyle='#3a2e39';ctx.font='bold 12px Nunito';ctx.fillText(v.toFixed(0)+' €',18+w,y+15);y+=34});legend.innerHTML=entries.map(([c,v],i)=>`<span style="color:${colors[i%6]}">●</span> ${c}: ${v.toFixed(2)} €`).join(' · ')||'Añade un gasto para ver la gráfica'}
+if(!data)seed();render();
+</script></body></html>

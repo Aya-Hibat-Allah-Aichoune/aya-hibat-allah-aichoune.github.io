@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luna Shop · E-commerce — Aya Aichoune</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--rosa:#e85d8a;--lila:#8b5fbf;--tinta:#3a2e39;--suave:#6f5f6e;--crema:#fffaf7}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Nunito,system-ui;background:var(--crema);color:var(--tinta)}
+header{padding:26px 5vw;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(140deg,#fceef3,#f3edfa);position:sticky;top:0;z-index:5}
+h1{font-family:'Playfair Display',serif}h1 em{color:var(--rosa)} a{color:var(--suave);font-weight:800;text-decoration:none}
+.cartbtn{background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;border:none;padding:12px 20px;border-radius:999px;font-weight:900;cursor:pointer}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:20px 5vw}.toolbar input,.toolbar select{padding:11px 14px;border:2px solid #f7d4e0;border-radius:12px;font-weight:700;font-family:Nunito}
+.chip{padding:9px 16px;border-radius:999px;border:2px solid #f7d4e0;background:#fff;font-weight:800;cursor:pointer}.chip.on{background:var(--rosa);color:#fff;border-color:var(--rosa)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:0 5vw 50px}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(232,93,138,.12)}.pic{height:150px;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.body{padding:18px}.body h3{font-size:1rem}.body p{font-size:.85rem;color:var(--suave);min-height:40px}.price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--rosa)}
+.add{width:100%;margin-top:12px;background:linear-gradient(120deg,var(--rosa),var(--lila));color:#fff;border:none;padding:11px;border-radius:999px;font-weight:900;cursor:pointer}
+.fav{float:right;background:none;border:none;font-size:1.2rem;cursor:pointer}
+#drawer{position:fixed;top:0;right:-420px;width:min(400px,92vw);height:100%;background:#fff;z-index:20;box-shadow:-10px 0 40px rgba(0,0,0,.18);padding:24px;transition:right .35s;overflow:auto}#drawer.open{right:0}
+.item{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #fceef3;padding:12px 0;font-size:.9rem}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid #f7d4e0;background:#fff;cursor:pointer;font-weight:900}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#3a2e39;color:#fff;padding:12px 22px;border-radius:999px;font-weight:800;transition:.3s;z-index:30}#toast.show{transform:translateX(-50%)}
+</style></head><body>
+<header><div><a href="../../index.html">← Portfolio</a><h1>🌙 Luna <em>Shop</em></h1><p style="color:var(--suave);font-weight:700">E-commerce completo: catálogo, filtros, carrito y checkout simulado</p></div><button class="cartbtn" onclick="toggleCart()">🛒 Carrito (<span id="count">0</span>) · <span id="miniTotal">0 €</span></button></header>
+<div class="toolbar"><input id="q" placeholder="🔍 Buscar producto..." oninput="render()" style="flex:1;min-width:200px"><select id="sort" onchange="render()"><option value="">Ordenar</option><option value="low">Precio ↑</option><option value="high">Precio ↓</option><option value="name">Nombre A-Z</option></select><span id="chips"></span></div>
+<main class="grid" id="grid"></main>
+<aside id="drawer"><h2 style="font-family:'Playfair Display',serif">Tu carrito 🛒</h2><div id="items"></div><h3 style="margin:18px 0">Total: <span id="total">0 €</span></h3><button class="add" onclick="checkout()">💳 Finalizar compra</button><button class="add" style="background:#fff;color:var(--rosa);border:2px solid #f7d4e0" onclick="toggleCart()">Seguir comprando</button><p id="ok" style="color:#3e9e7c;font-weight:900;margin-top:14px"></p></aside>
+<div id="toast"></div>
+<script>
+const P=[
+{id:1,n:'Sérum Rosa Luminoso',c:'Skincare',p:24.90,e:'🌸',g:'linear-gradient(135deg,#fceef3,#f7d4e0)',d:'Vitamina C y ácido hialurónico para una piel radiante.'},
+{id:2,n:'Crema Hidratante Luna',c:'Skincare',p:19.50,e:'🌙',g:'linear-gradient(135deg,#f3edfa,#e3d3f5)',d:'Hidratación 48h con aloe vera y manteca de karité.'},
+{id:3,n:'Labial Velvet Rose',c:'Maquillaje',p:14.90,e:'💄',g:'linear-gradient(135deg,#fde3c8,#fceef3)',d:'Color intenso mate que dura todo el día.'},
+{id:4,n:'Paleta Atardecer',c:'Maquillaje',p:29.90,e:'🎨',g:'linear-gradient(135deg,#fdf3e0,#fde3c8)',d:'12 sombras cálidas, mates y brillantes.'},
+{id:5,n:'Perfume Flor de Luna',c:'Perfume',p:49.90,e:'✨',g:'linear-gradient(135deg,#e7f6ef,#f3edfa)',d:'Jazmín, peonía y un toque de vainilla. 50 ml.'},
+{id:6,n:'Aceite Corporal Dorado',c:'Corporal',p:22.90,e:'🫧',g:'linear-gradient(135deg,#fdf3e0,#fceef3)',d:'Nutre y deja un brillo dorado sutil.'},
+{id:7,n:'Mascarilla Arcilla Rosa',c:'Skincare',p:12.90,e:'🧖‍♀️',g:'linear-gradient(135deg,#fceef3,#e7f6ef)',d:'Purifica poros en 10 minutos.'},
+{id:8,n:'Set Brochas Pro (8 uds.)',c:'Maquillaje',p:34.90,e:'🖌️',g:'linear-gradient(135deg,#f3edfa,#fceef3)',d:'Pelo sintético suave, mango de madera.'},
+{id:9,n:'Vela Aromática Lavanda',c:'Hogar',p:16.90,e:'🕯️',g:'linear-gradient(135deg,#e3d3f5,#fceef3)',d:'35h de calma para tu rincón favorito.'}];
+let cat='',cart=JSON.parse(localStorage.getItem('luna-cart')||'{}'),favs=new Set(JSON.parse(localStorage.getItem('luna-favs')||'[]'));
+chips.innerHTML=['','Skincare','Maquillaje','Perfume','Corporal','Hogar'].map(c=>`<button class="chip ${c===cat?'on':''}" onclick="cat='${c}';render();drawChips()">${c||'Todo'}</button>`).join('');
+function drawChips(){chips.innerHTML=['','Skincare','Maquillaje','Perfume','Corporal','Hogar'].map(c=>`<button class="chip ${c===cat?'on':''}" onclick="cat='${c}';render();drawChips()">${c||'Todo'}</button>`).join('')}
+function render(){let list=P.filter(p=>(!cat||p.c===cat)&&p.n.toLowerCase().includes(q.value.toLowerCase()));if(sort.value==='low')list.sort((a,b)=>a.p-b.p);if(sort.value==='high')list.sort((a,b)=>b.p-a.p);if(sort.value==='name')list.sort((a,b)=>a.n.localeCompare(b.n));
+grid.innerHTML=list.map(p=>`<article class="card"><div class="pic" style="background:${p.g}">${p.e}</div><div class="body"><button class="fav" onclick="fav(${p.id})">${favs.has(p.id)?'❤️':'🤍'}</button><small style="color:var(--lila);font-weight:900">${p.c.toUpperCase()}</small><h3>${p.n}</h3><p>${p.d}</p><span class="price">${p.p.toFixed(2)} €</span><button class="add" onclick="add(${p.id})">Añadir al carrito 🛒</button></div></article>`).join('')||'<p>No hay productos 😢</p>';update()}
+function add(id){cart[id]=(cart[id]||0)+1;save();update();toast('Añadido al carrito ✅')}
+function fav(id){favs.has(id)?favs.delete(id):favs.add(id);localStorage.setItem('luna-favs',JSON.stringify([...favs]));render()}
+function ch(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];save();update()}
+function save(){localStorage.setItem('luna-cart',JSON.stringify(cart))}
+function update(){let n=Object.values(cart).reduce((a,b)=>a+b,0),t=Object.entries(cart).reduce((a,[id,q])=>a+P.find(p=>p.id==id).p*q,0);count.textContent=n;miniTotal.textContent=t.toFixed(2)+' €';total.textContent=t.toFixed(2)+' €';items.innerHTML=Object.entries(cart).map(([id,q])=>{let p=P.find(x=>x.id==id);return `<div class="item"><span>${p.e} ${p.n}<br><b>${p.p.toFixed(2)} €</b></span><span class="qty"><button onclick="ch(${id},-1)">−</button> ${q} <button onclick="ch(${id},1)">+</button></span></div>`}).join('')||'<p style="color:var(--suave)">Tu carrito está vacío 🌙</p>'}
+function toggleCart(){drawer.classList.toggle('open')}
+function checkout(){if(!Object.keys(cart).length)return toast('El carrito está vacío');cart={};save();update();ok.textContent='🎉 ¡Pedido simulado confirmado! Gracias por comprar en Luna Shop.';toast('¡Compra completada! 🎉')}
+function toast(m){let t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+render();
+</script></body></html>
