@@ -295,6 +295,11 @@
     transition:transform .25s,box-shadow .25s;
   }
   .demo .btn-demo:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,93,138,.35)}
+  .demo .acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .demo .acciones .btn-demo{margin-top:0}
+  .demo .btn-demo.secundario{background:#fff;color:var(--rosa);border:2px solid rgba(232,93,138,.35)}
+  .demo .btn-demo.secundario:hover{border-color:var(--rosa);box-shadow:none}
+  .demo a.captura{display:block;text-decoration:none}
   .nota-demos{
     margin-top:26px;text-align:center;font-size:.85rem;color:var(--tinta-suave);
     background:var(--rosa-suave);border:1px dashed var(--rosa-medio);
@@ -653,6 +658,12 @@
       <p>Panel de ventas de cosmética en tiempo real con Python, Streamlit, PostgreSQL y Plotly: métricas, pedidos y gráficas en vivo.</p>
       <span class="premio-tag">▶ Ficha abajo, en «Del código al producto»</span>
     </div>
+    <div class="proyecto reveal">
+      <div class="icono">🌾</div>
+      <h3>Asistente experto RAG</h3>
+      <p>Agente que responde preguntas sobre artículos científicos de teledetección agrícola citando documento y página: Gemini, ChromaDB y LangGraph con memoria de conversación. Desplegado y usable online.</p>
+      <span class="premio-tag">▶ Pruébalo abajo, en «IA en movimiento»</span>
+    </div>
   </div>
 </section>
 
@@ -825,10 +836,32 @@
   <div class="reveal">
     <span class="etiqueta">Inteligencia Artificial</span>
     <h2>IA en movimiento <span class="deco">🤖</span></h2>
-    <p class="intro-seccion">Mi Máster en IA no se quedó en la teoría: aquí puedes ver mis modelos trabajando sobre vídeo real.</p>
+    <p class="intro-seccion">Mi Máster en IA no se quedó en la teoría: aquí puedes ver mis modelos trabajando sobre vídeo real y un asistente RAG que puedes usar ahora mismo.</p>
   </div>
 
   <div class="grid-demos">
+    <div class="demo reveal">
+      <div class="barra-nav">
+        <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
+        <span class="url-falsa">asistente-teledeteccion-agricola.streamlit.app · Gemini + RAG</span>
+      </div>
+      <a class="captura" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener" aria-label="Abrir el asistente experto en teledetección agrícola">
+        <img src="assets/asistente-rag.jpg" alt="Captura del asistente RAG respondiendo, con citas, qué índice de vegetación detecta el daño del saltahojas marrón en arroz">
+        <div class="velo"><span>Abrir la app ✨</span></div>
+      </a>
+      <div class="cuerpo">
+        <h3>🌾 Asistente experto en teledetección agrícola</h3>
+        <p>Agente <strong>RAG con memoria</strong> sobre cinco artículos científicos: embeddings de Gemini en <strong>ChromaDB</strong>, grafo en <strong>LangGraph</strong> que reescribe la pregunta con el historial, recupera los fragmentos y responde citando documento y página. Si los artículos no contienen la respuesta, lo dice en vez de inventar.</p>
+        <div class="tecnologias">
+          <span>Python</span><span>Gemini</span><span>LangGraph</span><span>LangChain</span><span>ChromaDB</span><span>Streamlit</span>
+        </div>
+        <div class="acciones">
+          <a class="btn-demo" href="https://asistente-teledeteccion-agricola.streamlit.app" target="_blank" rel="noopener">Probar el asistente ✨</a>
+          <a class="btn-demo secundario" href="https://github.com/Aya-Hibat-Allah-Aichoune/proyecto-final-genai" target="_blank" rel="noopener">🐙 GitHub</a>
+        </div>
+      </div>
+    </div>
+
     <div class="demo reveal">
       <div class="barra-nav">
         <span class="punto-nav"></span><span class="punto-nav"></span><span class="punto-nav"></span>
